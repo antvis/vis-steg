@@ -1,0 +1,83 @@
+{
+  "name": "@antv/vis-steg",
+  "version": "0.1.0",
+  "description": "Visualization Steganography: conceal information within visualization images.",
+  "main": "lib/src/index.js",
+  "types": "lib/src/index.d.ts",
+  "browser": "dist/index.js",
+  "module": "es/src/index.js",
+  "files": [
+    "src",
+    "es",
+    "dist",
+    "lib"
+  ],
+  "scripts": {
+    "test": "jest",
+    "build": "rm -rf lib && tsc --pretty",
+    "start": "webpack serve --port 8812",
+    "module": "rm -rf es && tsc -t ES5 -m ESNext --outDir es",
+    "pack": "webpack --config=webpack.config.js",
+    "format": "prettier --write \"src/**/*.ts\" \"demo/**/*.ts\" \"demo/**/*.ts\"",
+    "lint": "tslint -p tsconfig.json",
+    "prepare": "npm run build",
+    "prepublish": "npm run module && npm run pack",
+    "prepublishOnly": "npm run prepublish && npm test && npm run lint && webpack --mode=production",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antvis/vis-steg.git"
+  },
+  "author": "AFX",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/antvis/vis-steg/issues"
+  },
+  "homepage": "https://github.com/antvis/vis-steg#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "@ant-design/icons": "^4.6.2",
+    "@babel/core": "^7.13.14",
+    "@babel/plugin-proposal-class-properties": "^7.13.0",
+    "@babel/plugin-proposal-export-default-from": "^7.12.13",
+    "@babel/plugin-proposal-object-rest-spread": "^7.13.8",
+    "@babel/plugin-transform-runtime": "^7.13.10",
+    "@babel/preset-env": "^7.13.12",
+    "@babel/preset-react": "^7.13.13",
+    "@babel/preset-typescript": "^7.13.0",
+    "@babel/runtime": "^7.13.10",
+    "@types/jest": "^26.0.22",
+    "@types/jest-json-schema": "^2.1.3",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "antd": "^4.15.4",
+    "babel-jest": "^26.6.3",
+    "babel-loader": "^8.2.2",
+    "babel-plugin-import": "^1.13.3",
+    "browser-resolve": "^2.0.0",
+    "css-loader": "^5.2.0",
+    "file-loader": "^6.2.0",
+    "jest": "^26.6.3",
+    "jest-json-schema": "^5.0.0",
+    "less": "^4.1.1",
+    "less-loader": "^8.0.0",
+    "prettier": "^2.3.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "style-loader": "^2.0.0",
+    "ts-jest": "^26.5.4",
+    "ts-json-schema-generator": "^0.89.2",
+    "tslint": "^6.1.3",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^4.2.4",
+    "webpack": "^5.31.0",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
+  }
+}
