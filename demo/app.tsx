@@ -1,10 +1,7 @@
-import React from "react";
-import { enc } from "../src";
+import IndexPage from "./pages";
 
 export default function App() {
   return (
-    <>
-      <h1>{enc()}</h1>
-    </>
+    <IndexPage />
   );
 }
