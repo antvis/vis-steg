@@ -150,6 +150,7 @@ const devConfig = {
     host: "0.0.0.0",
     hot: true,
     contentBase: path.join(__dirname, "demo"),
+    publicPath: '/'
   },
   plugins: [
     new webpack.IgnorePlugin({ resourceRegExp: /^(fs|child_process)$/ }),
