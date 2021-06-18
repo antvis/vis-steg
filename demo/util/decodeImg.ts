@@ -5,8 +5,8 @@ import { readLSB } from "../../src";
 export async function decodeImg(imgUrl: string): Promise<string | undefined> {
   try {
     const img = await loadImg(imgUrl);
-    const encImgCanvas = document.createElement('canvas');
-    const encImgcontext = encImgCanvas.getContext('2d');
+    const encImgCanvas = document.createElement("canvas");
+    const encImgcontext = encImgCanvas.getContext("2d");
     encImgCanvas.width = img.width;
     encImgCanvas.height = img.height;
     encImgcontext.drawImage(img, 0, 0);
@@ -15,7 +15,7 @@ export async function decodeImg(imgUrl: string): Promise<string | undefined> {
     const encodedImgBitmap = Array.from(encodedImgData.data);
     const decodeSecret = readLSB(encodedImgBitmap);
     if (decodeSecret == null || decodeSecret.length === 0) {
-      throw new Error('Failed to decode the secret');
+      throw new Error("Failed to decode the secret");
     }
     return decodeSecret;
   } catch (err) {

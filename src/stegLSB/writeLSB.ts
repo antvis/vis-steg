@@ -3,10 +3,10 @@ import { str2Bits } from "../util/processBits";
 // TODO: 1. start check 2. legal check 3. error correction (e.g. Hamming Code)
 export function writeLSB(imgBitmapData: number[], secretInfo: string): number[] {
   function unSetBit(k: number) {
-    return k % 2 === 1 ? (Math.max(k - 1, 0)) : k;
+    return k % 2 === 1 ? Math.max(k - 1, 0) : k;
   }
   function setBit(k: number) {
-    return k % 2 === 1 ? k : (Math.min(k + 1, 255));
+    return k % 2 === 1 ? k : Math.min(k + 1, 255);
   }
   const bitStream = str2Bits(secretInfo);
   let j = 0;
