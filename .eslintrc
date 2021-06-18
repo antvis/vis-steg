@@ -7,7 +7,7 @@
     "prettier"
   ],
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint", "prettier", "eslint-plugin-import"],
+  "plugins": ["@typescript-eslint", "prettier", "import"],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -15,6 +15,8 @@
   },
   "rules": {
     "no-console": "off",
+    "import/extensions": "off",
+    "import/prefer-default-export": "off",
     "no-sparse-arrays": 0,
     "no-inner-declarations": 0,
     "prettier/prettier": 2,
@@ -39,5 +41,16 @@
     "@typescript-eslint/camelcase": 0,
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/type-annotation-spacing": 0
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    },
+    "import/order": ["error", { "groups": ["builtin", "external", "parent", "sibling", "index"] }]
   }
 }
