@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import "./index.less";
 import { Layout, Menu } from "antd";
 import { useState } from "react";
@@ -6,6 +7,9 @@ import DecoderPanel from "./Decoder";
 import { PieChartOutlined, DesktopOutlined } from "@ant-design/icons";
 
 const { Content, Sider } = Layout;
+=======
+import IndexPage from "./pages";
+>>>>>>> master
 
 export default function App() {
   const [isEncPanel, setIsEncPanel] = useState<boolean>(true);
@@ -73,6 +77,7 @@ export default function App() {
   }
 
   return (
+<<<<<<< HEAD
     <Layout style={{ minHeight: "100vh" }}>
       <Sider collapsible collapsed={siderCollapsed} trigger={null} theme="light"></Sider>
       <Sider
@@ -98,5 +103,8 @@ export default function App() {
         </Content>
       </Layout>
     </Layout>
+=======
+    <IndexPage />
+>>>>>>> master
   );
 }
