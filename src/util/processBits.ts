@@ -3,7 +3,7 @@ import { utf8Encode, utf8Decode } from "./utf8EncDec";
 
 export function str2Bits(str: string): number[] {
   const utf8Array = utf8Encode(str);
-  const bitsResult = new Array();
+  const bitsResult = [];
   for (let i = 0; i < utf8Array.length; i++) {
     for (let j = 128; j > 0; j = Math.floor(j / 2)) {
       if (Math.floor(utf8Array[i] / j)) {
@@ -21,7 +21,7 @@ export function str2Bits(str: string): number[] {
 }
 
 export function bits2Str(bitArray: number[]) {
-  const msgArray = new Array();
+  const msgArray = [];
   const msgArrayLen = Math.floor(bitArray.length / 8);
   for (let i = 0; i < msgArrayLen; i++) {
     let data = 0;
