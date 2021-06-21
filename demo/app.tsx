@@ -3,73 +3,49 @@ import { Layout, Menu } from "antd";
 import { useState } from "react";
 import EncoderPanel from "./Encoder";
 import DecoderPanel from "./Decoder";
-import { PieChartOutlined, DesktopOutlined } from "@ant-design/icons";
+import { StegSiderInfo } from "./ consts/stegSiderInfo";
+import { STEG_SIDER_INFOS } from "./ consts/stegSiderInfo";
+import PipelinePanel from "./Pipeline";
 
 const { Content, Sider } = Layout;
 
 export default function App() {
-  const [isEncPanel, setIsEncPanel] = useState<boolean>(true);
+  const [stegScene, setStegScene] = useState<StegSiderInfo>(STEG_SIDER_INFOS[0]);
   const [siderCollapsed, setSiderCollapsed] = useState<boolean>(false);
 
-  const EncDecSider = (props: { isEncPanel: boolean }) => {
-    const isSiderEncPanel = props.isEncPanel;
-    let defaultSelectedKeys = "Encode";
-    if (!isSiderEncPanel) defaultSelectedKeys = "Decode";
+  const StegSider = ({ curStegInfo }: { curStegInfo: StegSiderInfo }) => {
     return (
       <div>
         <div className={"tmpLogo"} />
-        <Menu theme="light" defaultSelectedKeys={[defaultSelectedKeys]} mode="inline">
-          <Menu.Item
-            key="Encode"
-            icon={<PieChartOutlined />}
-            onClick={() => {
-              setIsEncPanel(true);
-            }}
-          >
-            Encode
-          </Menu.Item>
-          <Menu.Item
-            key="Decode"
-            icon={<DesktopOutlined />}
-            onClick={() => {
-              setIsEncPanel(false);
-            }}
-          >
-            Decode
-          </Menu.Item>
+        <Menu theme="light" defaultSelectedKeys={[curStegInfo.type]} mode="inline">
+          {STEG_SIDER_INFOS.map((scene, idx) => (
+            <Menu.Item
+              key={scene.type}
+              icon={scene.icon}
+              onClick={() => {
+                setStegScene(scene);
+              }}
+            >
+              {scene.type}
+            </Menu.Item>
+          ))}
         </Menu>
       </div>
     );
   };
 
-  if (isEncPanel) {
-    return (
-      <Layout style={{ minHeight: "100vh" }}>
-        <Sider collapsible collapsed={siderCollapsed} trigger={null} theme="light"></Sider>
-        <Sider
-          collapsible
-          collapsed={siderCollapsed}
-          theme="light"
-          style={{
-            overflow: "auto",
-            height: "100vh",
-            position: "fixed",
-            left: 0,
-          }}
-          onCollapse={(collapsed) => {
-            setSiderCollapsed(collapsed);
-          }}
-        >
-          <EncDecSider isEncPanel={isEncPanel} />
-        </Sider>
-
-        <Layout className={"layout"}>
-          <Content>
-            <EncoderPanel />
-          </Content>
-        </Layout>
-      </Layout>
-    );
+  let stegContent = <></>;
+  switch (stegScene.type) {
+    case "Pipeline":
+      stegContent = <PipelinePanel width="400px" />;
+      break;
+    case "Encoder":
+      stegContent = <EncoderPanel width="500px" />;
+      break;
+    case "Decoder":
+      stegContent = <DecoderPanel width="500px" />;
+    default:
+      break;
   }
 
   return (
@@ -89,13 +65,11 @@ export default function App() {
           setSiderCollapsed(collapsed);
         }}
       >
-        <EncDecSider isEncPanel={isEncPanel} />
+        <StegSider curStegInfo={stegScene} />
       </Sider>
 
       <Layout className={"layout"}>
-        <Content>
-          <DecoderPanel />
-        </Content>
+        <Content> {stegContent} </Content>
       </Layout>
     </Layout>
   );

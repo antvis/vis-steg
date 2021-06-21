@@ -8,6 +8,6 @@ module.exports = {
   },
   testPathIgnorePatterns: ["/node_modules/"],
   collectCoverage: false,
-  testRegex: "/test/.*.test.ts?$",
+  testRegex: "/__tests__/.*.test.ts?$",
   verbose: false,
 };
