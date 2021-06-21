@@ -1,17 +1,17 @@
-import "./index.less";
-import UploadImgModal from "../components/UploadImgModal";
-import { Card, Button, Spin, Input } from "antd";
-import { useState } from "react";
-import ImagePreview from "../components/ImagePreview";
-import { PictureFilled } from "@ant-design/icons";
-import { encodeImg } from "../util";
-import classNames from "classnames";
+import './index.less';
+import UploadImgModal from '../components/UploadImgModal';
+import { Card, Button, Spin, Input } from 'antd';
+import React, { useState } from 'react';
+import ImagePreview from '../components/ImagePreview';
+import { PictureFilled } from '@ant-design/icons';
+import { encodeImg } from '../util';
+import classNames from 'classnames';
 
 const { TextArea } = Input;
 
 const EncoderPanel = () => {
   const [encodedImg, setEncodedImg] = useState<string>();
-  const [inputSecret, setInputSecret] = useState<string>("");
+  const [inputSecret, setInputSecret] = useState<string>('');
   const [stopUploadImg, setStopUploadImg] = useState<boolean>(false);
   const [reloadUpImgPanel, setReloadUpImgPanel] = useState<boolean>(false);
   const [upImg, setUpImg] = useState<string>();
@@ -23,18 +23,18 @@ const EncoderPanel = () => {
   const handleEncodeBtn = () => {
     setStopUploadImg(true);
     // console.log("inputSecret = " + inputSecret);
-    if (inputSecret === undefined) setInputSecret("");
+    if (inputSecret === undefined) setInputSecret('');
     encodeImg(upImg, inputSecret)
       .then((result) => {
         if (result) {
           setEncodedImg(result);
         } else {
-          throw new Error("Failed to encode the secret!");
+          throw new Error('Failed to encode the secret!');
         }
         setStopUploadImg(false);
       })
       .catch((err) => {
-        alert("Failed to encode the secret!");
+        alert('Failed to encode the secret!');
         setReloadUpImgPanel(reloadUpImgPanel ? false : true);
         setEncodedImg(undefined);
         setStopUploadImg(false);
@@ -43,16 +43,16 @@ const EncoderPanel = () => {
 
   return (
     <div>
-      <Card hoverable className={"uploadImgPanel"} title="Encoder">
+      <Card hoverable className={'uploadImgPanel'} title="Encoder">
         <Spin spinning={stopUploadImg}>
           <UploadImgModal key="Encode" reload={reloadUpImgPanel} setUploadImg={getUploadImg}></UploadImgModal>
 
-          <div className={"sourceContainer"}>
-            <p className={"sourceContainerText"}>Secret massages:</p>
+          <div className={'sourceContainer'}>
+            <p className={'sourceContainerText'}>Secret massages:</p>
             <TextArea
-              placeholder={"Secrets..."}
+              placeholder={'Secrets...'}
               allowClear
-              className={classNames("sourceContainerInput", "urlInput")}
+              className={classNames('sourceContainerInput', 'urlInput')}
               maxLength={100}
               onChange={(e) => {
                 setInputSecret(e.target.value);
@@ -60,12 +60,12 @@ const EncoderPanel = () => {
             />
           </div>
 
-          <div className={"buttonBox"}>
+          <div className={'buttonBox'}>
             <Button
-              key={"Cancel"}
+              key={'Cancel'}
               size="large"
               style={{
-                width: "45%",
+                width: '45%',
               }}
               onClick={() => {
                 setReloadUpImgPanel(reloadUpImgPanel ? false : true);
@@ -77,11 +77,11 @@ const EncoderPanel = () => {
             </Button>
 
             <Button
-              key={"Encode"}
+              key={'Encode'}
               size="large"
               type="primary"
               style={{
-                width: "45%",
+                width: '45%',
               }}
               onClick={() => handleEncodeBtn()}
             >
@@ -91,12 +91,12 @@ const EncoderPanel = () => {
         </Spin>
       </Card>
 
-      <Card hoverable className={"uploadImgPanel"} title="Encoded Image">
+      <Card hoverable className={'uploadImgPanel'} title="Encoded Image">
         {encodedImg ? (
           <ImagePreview image={encodedImg}></ImagePreview>
         ) : (
-          <div className={"localContainer"}>
-            <p className={"localLogo"}>
+          <div className={'localContainer'}>
+            <p className={'localLogo'}>
               <PictureFilled />
             </p>
           </div>

@@ -1,9 +1,9 @@
-import "./index.less";
-import { Layout, Menu } from "antd";
-import { useState } from "react";
-import EncoderPanel from "./Encoder";
-import DecoderPanel from "./Decoder";
-import { PieChartOutlined, DesktopOutlined } from "@ant-design/icons";
+import { useState } from 'react';
+import { Layout, Menu } from 'antd';
+import { PieChartOutlined, DesktopOutlined } from '@ant-design/icons';
+import EncoderPanel from './Encoder';
+import DecoderPanel from './Decoder';
+import './index.less';
 
 const { Content, Sider } = Layout;
 
@@ -13,11 +13,11 @@ export default function App() {
 
   const EncDecSider = (props: { isEncPanel: boolean }) => {
     const isSiderEncPanel = props.isEncPanel;
-    let defaultSelectedKeys = "Encode";
-    if (!isSiderEncPanel) defaultSelectedKeys = "Decode";
+    let defaultSelectedKeys = 'Encode';
+    if (!isSiderEncPanel) defaultSelectedKeys = 'Decode';
     return (
       <div>
-        <div className={"tmpLogo"} />
+        <div className={'tmpLogo'} />
         <Menu theme="light" defaultSelectedKeys={[defaultSelectedKeys]} mode="inline">
           <Menu.Item
             key="Encode"
@@ -44,16 +44,16 @@ export default function App() {
 
   if (isEncPanel) {
     return (
-      <Layout style={{ minHeight: "100vh" }}>
+      <Layout style={{ minHeight: '100vh' }}>
         <Sider collapsible collapsed={siderCollapsed} trigger={null} theme="light"></Sider>
         <Sider
           collapsible
           collapsed={siderCollapsed}
           theme="light"
           style={{
-            overflow: "auto",
-            height: "100vh",
-            position: "fixed",
+            overflow: 'auto',
+            height: '100vh',
+            position: 'fixed',
             left: 0,
           }}
           onCollapse={(collapsed) => {
@@ -63,7 +63,7 @@ export default function App() {
           <EncDecSider isEncPanel={isEncPanel} />
         </Sider>
 
-        <Layout className={"layout"}>
+        <Layout className={'layout'}>
           <Content>
             <EncoderPanel />
           </Content>
@@ -73,16 +73,16 @@ export default function App() {
   }
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={siderCollapsed} trigger={null} theme="light"></Sider>
       <Sider
         collapsible
         collapsed={siderCollapsed}
         theme="light"
         style={{
-          overflow: "auto",
-          height: "100vh",
-          position: "fixed",
+          overflow: 'auto',
+          height: '100vh',
+          position: 'fixed',
           left: 0,
         }}
         onCollapse={(collapsed, type) => {
@@ -92,7 +92,7 @@ export default function App() {
         <EncDecSider isEncPanel={isEncPanel} />
       </Sider>
 
-      <Layout className={"layout"}>
+      <Layout className={'layout'}>
         <Content>
           <DecoderPanel />
         </Content>
