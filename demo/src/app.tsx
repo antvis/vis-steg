@@ -1,101 +1,75 @@
-import { useState } from 'react';
-import { Layout, Menu } from 'antd';
-import { PieChartOutlined, DesktopOutlined } from '@ant-design/icons';
-import EncoderPanel from './Encoder';
-import DecoderPanel from './Decoder';
-import './index.less';
+import React, { useState } from "react";
+import { Layout, Menu } from "antd";
+import EncoderPanel from "./Encoder";
+import DecoderPanel from "./Decoder";
+import { StegSiderInfo, STEG_SIDER_INFOS } from "./ consts/stegSiderInfo";
+import PipelinePanel from "./Pipeline";
+import "./index.less";
 
 const { Content, Sider } = Layout;
 
 export default function App() {
-  const [isEncPanel, setIsEncPanel] = useState<boolean>(true);
+  const [stegScene, setStegScene] = useState<StegSiderInfo>(STEG_SIDER_INFOS[0]);
   const [siderCollapsed, setSiderCollapsed] = useState<boolean>(false);
 
-  const EncDecSider = (props: { isEncPanel: boolean }) => {
-    const isSiderEncPanel = props.isEncPanel;
-    let defaultSelectedKeys = 'Encode';
-    if (!isSiderEncPanel) defaultSelectedKeys = 'Decode';
+  const StegSider = ({ curStegInfo }: { curStegInfo: StegSiderInfo }) => {
     return (
       <div>
-        <div className={'tmpLogo'} />
-        <Menu theme="light" defaultSelectedKeys={[defaultSelectedKeys]} mode="inline">
-          <Menu.Item
-            key="Encode"
-            icon={<PieChartOutlined />}
-            onClick={() => {
-              setIsEncPanel(true);
-            }}
-          >
-            Encode
-          </Menu.Item>
-          <Menu.Item
-            key="Decode"
-            icon={<DesktopOutlined />}
-            onClick={() => {
-              setIsEncPanel(false);
-            }}
-          >
-            Decode
-          </Menu.Item>
+        <div className={"tmpLogo"} />
+        <Menu theme="light" defaultSelectedKeys={[curStegInfo.type]} mode="inline">
+          {STEG_SIDER_INFOS.map((scene) => (
+            <Menu.Item
+              key={scene.type}
+              icon={scene.icon}
+              onClick={() => {
+                setStegScene(scene);
+              }}
+            >
+              {scene.type}
+            </Menu.Item>
+          ))}
         </Menu>
       </div>
     );
   };
 
-  if (isEncPanel) {
-    return (
-      <Layout style={{ minHeight: '100vh' }}>
-        <Sider collapsible collapsed={siderCollapsed} trigger={null} theme="light"></Sider>
-        <Sider
-          collapsible
-          collapsed={siderCollapsed}
-          theme="light"
-          style={{
-            overflow: 'auto',
-            height: '100vh',
-            position: 'fixed',
-            left: 0,
-          }}
-          onCollapse={(collapsed) => {
-            setSiderCollapsed(collapsed);
-          }}
-        >
-          <EncDecSider isEncPanel={isEncPanel} />
-        </Sider>
-
-        <Layout className={'layout'}>
-          <Content>
-            <EncoderPanel />
-          </Content>
-        </Layout>
-      </Layout>
-    );
+  let stegContent = <></>;
+  switch (stegScene.type) {
+    case "Pipeline":
+      stegContent = <PipelinePanel width="400px" />;
+      break;
+    case "Encoder":
+      stegContent = <EncoderPanel width="500px" />;
+      break;
+    case "Decoder":
+      stegContent = <DecoderPanel width="500px" />;
+      break;
+    default:
+      break;
   }
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ minHeight: "100vh" }}>
       <Sider collapsible collapsed={siderCollapsed} trigger={null} theme="light"></Sider>
       <Sider
         collapsible
         collapsed={siderCollapsed}
         theme="light"
         style={{
-          overflow: 'auto',
-          height: '100vh',
-          position: 'fixed',
+          overflow: "auto",
+          height: "100vh",
+          position: "fixed",
           left: 0,
         }}
-        onCollapse={(collapsed, type) => {
+        onCollapse={(collapsed) => {
           setSiderCollapsed(collapsed);
         }}
       >
-        <EncDecSider isEncPanel={isEncPanel} />
+        <StegSider curStegInfo={stegScene} />
       </Sider>
 
-      <Layout className={'layout'}>
-        <Content>
-          <DecoderPanel />
-        </Content>
+      <Layout className={"layout"}>
+        <Content> {stegContent} </Content>
       </Layout>
     </Layout>
   );

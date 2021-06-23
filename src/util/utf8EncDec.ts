@@ -10,15 +10,15 @@ export function utf8Decode(bytes: number[]): string {
     c = bytes[offset];
     c2 = bytes[offset + 1];
     c3 = bytes[offset + 2];
-    if (128 > c) {
+    if (c < 128) {
       chars.push(String.fromCharCode(c));
       offset += 1;
-    } else if (191 < c && c < 224) {
-      // tslint:disable-next-line: no-bitwise
+    } else if (c > 191 && c < 224) {
+      // eslint-disable-next-line no-bitwise
       chars.push(String.fromCharCode(((c & 31) << 6) | (c2 & 63)));
       offset += 2;
     } else {
-      // tslint:disable-next-line: no-bitwise
+      // eslint-disable-next-line no-bitwise
       chars.push(String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63)));
       offset += 3;
     }
@@ -29,16 +29,16 @@ export function utf8Decode(bytes: number[]): string {
 export function utf8Encode(str: string): number[] {
   const bytes = [];
   let offset = 0;
-  str = encodeURI(str);
+  const encodeStr = encodeURI(str);
 
-  while (offset < str.length) {
-    let char = str[offset];
+  while (offset < encodeStr.length) {
+    let char = encodeStr[offset];
     offset += 1;
 
-    if ("%" !== char) {
+    if (char !== "%") {
       bytes.push(char.charCodeAt(0));
     } else {
-      char = str[offset] + str[offset + 1];
+      char = encodeStr[offset] + encodeStr[offset + 1];
       bytes.push(parseInt(char, 16));
       offset += 2;
     }
