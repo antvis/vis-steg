@@ -1,11 +1,11 @@
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { Image } from "antd";
 
 interface ImagePreviewProps {
   image: string;
 }
 
-const ImagePreview: FC<ImagePreviewProps> = ({ image }) => {
+const ImagePreview: FC<ImagePreviewProps> = ({ image }: { image: string }) => {
   const [isError, setIsError] = useState<boolean>(false);
   return (
     <>

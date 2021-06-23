@@ -1,14 +1,14 @@
+import React, { useState, useEffect } from "react";
 import { Tabs, Input, Upload } from "antd";
-import { PictureFilled, PlusOutlined } from "@ant-design/icons";
-import ImagePreview from "../ImagePreview";
+import { PictureFilled } from "@ant-design/icons";
 import classNames from "classnames";
+import ImagePreview from "../ImagePreview";
 import "./index.less";
-import { useState, useEffect } from "react";
 
 const { TabPane } = Tabs;
 const { Dragger } = Upload;
 
-const UploadImgModal = ({ reload, setUploadImg }) => {
+const UploadImgModal = ({ reload, setUploadImg }: { reload: boolean, setUploadImg: (image: string) => void }) => {
   const [image, setImage] = useState<string>();
   useEffect(() => {
     setUploadImg(image);

@@ -1,5 +1,5 @@
+import { LSBSteg } from "../../../src";
 import { loadImg } from "./loadImg";
-import { writeLSB } from "../../src";
 
 // Get the encoded image from img url
 export async function encodeImg(imgUrl: string, secretInfo: string, stegMethod = "lsb"): Promise<string | undefined> {
@@ -14,9 +14,11 @@ export async function encodeImg(imgUrl: string, secretInfo: string, stegMethod =
       containerImgCanvas.height = img.height;
       containerCanvascxt.drawImage(img, 0, 0);
       const containerImgData = containerCanvascxt.getImageData(0, 0, img.width, img.height);
-
+      // console.log(containerImgData.data);
       const containerImgBitmap = Array.from(containerImgData.data);
-      const encodedImgBitmap = Uint8ClampedArray.from(writeLSB(containerImgBitmap, secretInfo));
+      // console.log(containerImgBitmap.length);
+      const testLSBSteg = new LSBSteg();
+      const encodedImgBitmap = Uint8ClampedArray.from(testLSBSteg.writeLSB({ imgBitmapData: containerImgBitmap, secretInfo }));
       const encodedImgData = new ImageData(encodedImgBitmap, containerImgCanvas.width, containerImgCanvas.height);
 
       containerCanvascxt.putImageData(encodedImgData, 0, 0);
@@ -24,9 +26,9 @@ export async function encodeImg(imgUrl: string, secretInfo: string, stegMethod =
       return encImgURL;
     }
 
-    return;
+    return undefined;
   } catch (err) {
     console.error(err);
-    return;
+    return undefined;
   }
 }
