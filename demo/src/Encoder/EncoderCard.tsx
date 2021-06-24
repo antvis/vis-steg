@@ -50,7 +50,7 @@ const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string) => void
             placeholder={"Secrets..."}
             allowClear
             className={classNames("sourceContainerInput", "urlInput")}
-            maxLength={100}
+            maxLength={200000}
             onChange={(e) => {
               setInputSecret(e.target.value);
             }}
