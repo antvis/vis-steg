@@ -1,14 +1,14 @@
-import React, { useState } from "react";
-import { Card, Button, Spin, Input } from "antd";
-import classNames from "classnames";
-import UploadImgModal from "../components/UploadImgModal";
-import { encodeImg } from "../util";
-import "./index.less";
+import React, { useState } from 'react';
+import { Card, Button, Spin, Input } from 'antd';
+import classNames from 'classnames';
+import UploadImgModal from '../components/UploadImgModal';
+import { encodeImg } from '../util';
+import './index.less';
 
 const { TextArea } = Input;
 
 const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string) => void }) => {
-  const [inputSecret, setInputSecret] = useState<string>("");
+  const [inputSecret, setInputSecret] = useState<string>('');
   const [stopUploadImg, setStopUploadImg] = useState<boolean>(false);
   const [reloadUpImgPanel, setReloadUpImgPanel] = useState<boolean>(false);
   const [upImg, setUpImg] = useState<string>();
@@ -20,19 +20,19 @@ const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string) => void
   const handleEncodeBtn = () => {
     setStopUploadImg(true);
     // console.log("inputSecret = " + inputSecret);
-    if (inputSecret === undefined) setInputSecret("");
+    if (inputSecret === undefined) setInputSecret('');
     encodeImg(upImg, inputSecret)
       .then((result) => {
         if (result) {
           setEncodedImg(result);
         } else {
-          throw new Error("Failed to encode the secret!");
+          throw new Error('Failed to encode the secret!');
         }
         setStopUploadImg(false);
       })
       .catch(() => {
         // eslint-disable-next-line no-alert
-        alert("Failed to encode the secret!");
+        alert('Failed to encode the secret!');
         setReloadUpImgPanel(!reloadUpImgPanel);
         setEncodedImg(undefined);
         setStopUploadImg(false);
@@ -40,16 +40,16 @@ const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string) => void
   };
 
   return (
-    <Card hoverable className={"uploadImgPanel"} title="Encoder">
+    <Card hoverable className={'uploadImgPanel'} title="Encoder">
       <Spin spinning={stopUploadImg}>
         <UploadImgModal key="Encode" reload={reloadUpImgPanel} setUploadImg={getUploadImg}></UploadImgModal>
 
-        <div className={"sourceContainer"}>
-          <p className={"sourceContainerText"}>Secret massages:</p>
+        <div className={'sourceContainer'}>
+          <p className={'sourceContainerText'}>Secret massages:</p>
           <TextArea
-            placeholder={"Secrets..."}
+            placeholder={'Secrets...'}
             allowClear
-            className={classNames("sourceContainerInput", "urlInput")}
+            className={classNames('sourceContainerInput', 'urlInput')}
             maxLength={100}
             onChange={(e) => {
               setInputSecret(e.target.value);
@@ -57,12 +57,12 @@ const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string) => void
           />
         </div>
 
-        <div className={"buttonBox"}>
+        <div className={'buttonBox'}>
           <Button
-            key={"Cancel"}
+            key={'Cancel'}
             size="large"
             style={{
-              width: "45%",
+              width: '45%',
             }}
             onClick={() => {
               setReloadUpImgPanel(!reloadUpImgPanel);
@@ -74,11 +74,11 @@ const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string) => void
           </Button>
 
           <Button
-            key={"Encode"}
+            key={'Encode'}
             size="large"
             type="primary"
             style={{
-              width: "45%",
+              width: '45%',
             }}
             onClick={() => handleEncodeBtn()}
           >

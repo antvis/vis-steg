@@ -1,7 +1,7 @@
-import React from "react";
-import { GatewayOutlined, AppstoreOutlined, CodeOutlined } from "@ant-design/icons";
+import React from 'react';
+import { GatewayOutlined, AppstoreOutlined, CodeOutlined } from '@ant-design/icons';
 
-export type StegSiderType = "Pipeline" | "Encoder" | "Decoder";
+export type StegSiderType = 'Pipeline' | 'Encoder' | 'Decoder';
 
 export interface StegSiderInfo {
   name: string;
@@ -11,18 +11,18 @@ export interface StegSiderInfo {
 
 export const STEG_SIDER_INFOS: StegSiderInfo[] = [
   {
-    name: "Pipeline",
-    type: "Pipeline",
+    name: 'Pipeline',
+    type: 'Pipeline',
     icon: <GatewayOutlined />,
   },
   {
-    name: "Encoder",
-    type: "Encoder",
+    name: 'Encoder',
+    type: 'Encoder',
     icon: <CodeOutlined />,
   },
   {
-    name: "Decoder",
-    type: "Decoder",
+    name: 'Decoder',
+    type: 'Decoder',
     icon: <AppstoreOutlined />,
   },
 ];

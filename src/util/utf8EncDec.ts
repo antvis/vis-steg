@@ -23,7 +23,7 @@ export function utf8Decode(bytes: number[]): string {
       offset += 3;
     }
   }
-  return chars.join("");
+  return chars.join('');
 }
 
 export function utf8Encode(str: string): number[] {
@@ -35,7 +35,7 @@ export function utf8Encode(str: string): number[] {
     let char = encodeStr[offset];
     offset += 1;
 
-    if (char !== "%") {
+    if (char !== '%') {
       bytes.push(char.charCodeAt(0));
     } else {
       char = encodeStr[offset] + encodeStr[offset + 1];

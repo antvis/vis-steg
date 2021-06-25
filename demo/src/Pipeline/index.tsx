@@ -1,16 +1,16 @@
-import React, { useState } from "react";
-import { Card, Button, Spin, Typography } from "antd";
-import { PictureFilled } from "@ant-design/icons";
-import ImagePreview from "../components/ImagePreview";
-import EncoderCard from "../Encoder/EncoderCard";
-import { decodeImg } from "../util";
-import "./index.less";
+import React, { useState } from 'react';
+import { Card, Button, Spin, Typography } from 'antd';
+import { PictureFilled } from '@ant-design/icons';
+import ImagePreview from '../components/ImagePreview';
+import EncoderCard from '../Encoder/EncoderCard';
+import { decodeImg } from '../util';
+import './index.less';
 
 const { Paragraph } = Typography;
 
 const PipelinePanel = ({ width }: { width: string | number }) => {
   const [encodedImg, setEncodedImg] = useState<string>();
-  const [decSecret, setDecSecret] = useState<string>("");
+  const [decSecret, setDecSecret] = useState<string>('');
   const [stopUploadImg, setStopUploadImg] = useState<boolean>(false);
   const [reloadUpImgPanel, setReloadUpImgPanel] = useState<boolean>(false);
 
@@ -22,15 +22,15 @@ const PipelinePanel = ({ width }: { width: string | number }) => {
           // console.log("decodeSecret = " + result);
           setDecSecret(result);
         } else {
-          throw new Error("Failed to decode the secret!");
+          throw new Error('Failed to decode the secret!');
         }
         setStopUploadImg(false);
       })
       .catch(() => {
         // eslint-disable-next-line no-alert
-        alert("Failed to decode the secret!");
+        alert('Failed to decode the secret!');
         setReloadUpImgPanel(!reloadUpImgPanel);
-        setDecSecret("");
+        setDecSecret('');
         setStopUploadImg(false);
       });
   };
@@ -40,7 +40,7 @@ const PipelinePanel = ({ width }: { width: string | number }) => {
   };
 
   return (
-    <div className={"pipeLinePanel"}>
+    <div className={'pipeLinePanel'}>
       <div
         style={{
           width: `${width}`,
@@ -54,23 +54,23 @@ const PipelinePanel = ({ width }: { width: string | number }) => {
           width: `${width}`,
         }}
       >
-        <Card hoverable className={"uploadImgPanel"} title="Encoded Image">
+        <Card hoverable className={'uploadImgPanel'} title="Encoded Image">
           {encodedImg ? (
             <ImagePreview image={encodedImg}></ImagePreview>
           ) : (
-            <div className={"localContainer"}>
-              <p className={"localLogo"}>
+            <div className={'localContainer'}>
+              <p className={'localLogo'}>
                 <PictureFilled />
               </p>
             </div>
           )}
           <Spin spinning={stopUploadImg}>
             <Button
-              key={"Decode"}
+              key={'Decode'}
               size="large"
               type="primary"
               style={{
-                marginTop: "15px",
+                marginTop: '15px',
               }}
               block
               onClick={() => handleDecodeBtn()}
@@ -80,7 +80,7 @@ const PipelinePanel = ({ width }: { width: string | number }) => {
           </Spin>
         </Card>
 
-        <Card hoverable className={"uploadImgPanel"} title="Decoded Secrets">
+        <Card hoverable className={'uploadImgPanel'} title="Decoded Secrets">
           <Paragraph>
             <pre>{decSecret}</pre>
           </Paragraph>

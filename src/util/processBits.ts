@@ -1,5 +1,5 @@
 /* String and Bits transfer is from https://github.com/zeruniverse/CryptoStego */
-import { utf8Encode, utf8Decode } from "./utf8EncDec";
+import { utf8Encode, utf8Decode } from './utf8EncDec';
 
 export function str2Bits(str: string): number[] {
   const utf8Array = utf8Encode(str);

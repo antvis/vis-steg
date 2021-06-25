@@ -1,2 +1,2 @@
-export * from "./encodeImg";
-export * from "./decodeImg";
+export * from './encodeImg';
+export * from './decodeImg';

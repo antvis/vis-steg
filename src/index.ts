@@ -1,5 +1,5 @@
-import pkg from "../package.json";
+import pkg from '../package.json';
 
 export const { version } = pkg;
 
-export * from "./steg/LSB-steg";
+export * from './steg/LSB-steg';

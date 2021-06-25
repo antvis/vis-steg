@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Tabs, Input, Upload } from "antd";
-import { PictureFilled } from "@ant-design/icons";
-import classNames from "classnames";
-import ImagePreview from "../ImagePreview";
-import "./index.less";
+import React, { useState, useEffect } from 'react';
+import { Tabs, Input, Upload } from 'antd';
+import { PictureFilled } from '@ant-design/icons';
+import classNames from 'classnames';
+import ImagePreview from '../ImagePreview';
+import './index.less';
 
 const { TabPane } = Tabs;
 const { Dragger } = Upload;
 
-const UploadImgModal = ({ reload, setUploadImg }: { reload: boolean, setUploadImg: (image: string) => void }) => {
+const UploadImgModal = ({ reload, setUploadImg }: { reload: boolean; setUploadImg: (image: string) => void }) => {
   const [image, setImage] = useState<string>();
   useEffect(() => {
     setUploadImg(image);
@@ -20,7 +20,7 @@ const UploadImgModal = ({ reload, setUploadImg }: { reload: boolean, setUploadIm
 
   const uploadImage = (info: any) => {
     const reader = new FileReader();
-    reader.addEventListener("load", () => setImage(reader.result as string));
+    reader.addEventListener('load', () => setImage(reader.result as string));
     reader.readAsDataURL(info.file.originFileObj);
   };
 
@@ -45,12 +45,12 @@ const UploadImgModal = ({ reload, setUploadImg }: { reload: boolean, setUploadIm
                 action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                 showUploadList={false}
                 onChange={uploadImage}
-                className={classNames("sourceContainer", "localContainer")}
+                className={classNames('sourceContainer', 'localContainer')}
               >
-                <p className={"localLogo"}>
+                <p className={'localLogo'}>
                   <PictureFilled />
                 </p>
-                <p className={"localText"}>浏览或拖拽图片</p>
+                <p className={'localText'}>浏览或拖拽图片</p>
               </Dragger>
             </div>
           )}
@@ -59,11 +59,11 @@ const UploadImgModal = ({ reload, setUploadImg }: { reload: boolean, setUploadIm
           {image ? (
             <ImagePreview image={image} />
           ) : (
-            <div className={"sourceContainer"}>
-              <p className={"sourceContainerText"}>图片URL:</p>
+            <div className={'sourceContainer'}>
+              <p className={'sourceContainerText'}>图片URL:</p>
               <Input
                 placeholder="http://"
-                className={classNames("sourceContainerInput", "urlInput")}
+                className={classNames('sourceContainerInput', 'urlInput')}
                 onPressEnter={inputImage}
               />
             </div>

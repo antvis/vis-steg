@@ -1,12 +1,11 @@
-import { initOptions } from "../util/iniOptions";
-import { bits2Str, str2Bits } from "../util/processBits";
+import { initOptions } from '../util/iniOptions';
+import { bits2Str, str2Bits } from '../util/processBits';
 
 /**
  * LSB steg
  * @public
  */
 export class LSBSteg {
-
   unSetBit(k: number) {
     return k % 2 === 1 ? Math.max(k - 1, 0) : k;
   }
@@ -34,7 +33,7 @@ export class LSBSteg {
   }
 
   writeLSB(options?: LSBEncodeOptions): number[] {
-    const opts = initOptions(options, { imgBitmapData: [0], imgHeight: 0, imgWidth: 0, imgChannel: 0, secretInfo: "" });
+    const opts = initOptions(options, { imgBitmapData: [0], imgHeight: 0, imgWidth: 0, imgChannel: 0, secretInfo: '' });
     const { imgBitmapData, secretInfo } = opts;
     const bitStream = str2Bits(secretInfo);
     let j = 0;

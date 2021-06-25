@@ -1,15 +1,15 @@
-import { LSBSteg } from "../../../src";
-import { loadImg } from "./loadImg";
+import { LSBSteg } from '../../../src';
+import { loadImg } from './loadImg';
 
 // Get the encoded image from img url
-export async function encodeImg(imgUrl: string, secretInfo: string, stegMethod = "lsb"): Promise<string | undefined> {
+export async function encodeImg(imgUrl: string, secretInfo: string, stegMethod = 'lsb'): Promise<string | undefined> {
   try {
     // TEMP
     console.log(stegMethod);
-    if (stegMethod === "lsb") {
+    if (stegMethod === 'lsb') {
       const img = await loadImg(imgUrl);
-      const containerImgCanvas = document.createElement("canvas");
-      const containerCanvascxt = containerImgCanvas.getContext("2d");
+      const containerImgCanvas = document.createElement('canvas');
+      const containerCanvascxt = containerImgCanvas.getContext('2d');
       containerImgCanvas.width = img.width;
       containerImgCanvas.height = img.height;
       containerCanvascxt.drawImage(img, 0, 0);
@@ -18,11 +18,13 @@ export async function encodeImg(imgUrl: string, secretInfo: string, stegMethod =
       const containerImgBitmap = Array.from(containerImgData.data);
       // console.log(containerImgBitmap.length);
       const testLSBSteg = new LSBSteg();
-      const encodedImgBitmap = Uint8ClampedArray.from(testLSBSteg.writeLSB({ imgBitmapData: containerImgBitmap, secretInfo }));
+      const encodedImgBitmap = Uint8ClampedArray.from(
+        testLSBSteg.writeLSB({ imgBitmapData: containerImgBitmap, secretInfo })
+      );
       const encodedImgData = new ImageData(encodedImgBitmap, containerImgCanvas.width, containerImgCanvas.height);
 
       containerCanvascxt.putImageData(encodedImgData, 0, 0);
-      const encImgURL: string = containerImgCanvas.toDataURL("image/png");
+      const encImgURL: string = containerImgCanvas.toDataURL('image/png');
       return encImgURL;
     }
 

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { Layout, Menu } from "antd";
-import EncoderPanel from "./Encoder";
-import DecoderPanel from "./Decoder";
-import { StegSiderInfo, STEG_SIDER_INFOS } from "./ consts/stegSiderInfo";
-import PipelinePanel from "./Pipeline";
-import "./index.less";
+import React, { useState } from 'react';
+import { Layout, Menu } from 'antd';
+import EncoderPanel from './Encoder';
+import DecoderPanel from './Decoder';
+import { StegSiderInfo, STEG_SIDER_INFOS } from './ consts/stegSiderInfo';
+import PipelinePanel from './Pipeline';
+import './index.less';
 
 const { Content, Sider } = Layout;
 
@@ -15,7 +15,7 @@ export default function App() {
   const StegSider = ({ curStegInfo }: { curStegInfo: StegSiderInfo }) => {
     return (
       <div>
-        <div className={"tmpLogo"} />
+        <div className={'tmpLogo'} />
         <Menu theme="light" defaultSelectedKeys={[curStegInfo.type]} mode="inline">
           {STEG_SIDER_INFOS.map((scene) => (
             <Menu.Item
@@ -35,13 +35,13 @@ export default function App() {
 
   let stegContent = <></>;
   switch (stegScene.type) {
-    case "Pipeline":
+    case 'Pipeline':
       stegContent = <PipelinePanel width="400px" />;
       break;
-    case "Encoder":
+    case 'Encoder':
       stegContent = <EncoderPanel width="500px" />;
       break;
-    case "Decoder":
+    case 'Decoder':
       stegContent = <DecoderPanel width="500px" />;
       break;
     default:
@@ -49,16 +49,16 @@ export default function App() {
   }
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout style={{ minHeight: '100vh' }}>
       <Sider collapsible collapsed={siderCollapsed} trigger={null} theme="light"></Sider>
       <Sider
         collapsible
         collapsed={siderCollapsed}
         theme="light"
         style={{
-          overflow: "auto",
-          height: "100vh",
-          position: "fixed",
+          overflow: 'auto',
+          height: '100vh',
+          position: 'fixed',
           left: 0,
         }}
         onCollapse={(collapsed) => {
@@ -68,7 +68,7 @@ export default function App() {
         <StegSider curStegInfo={stegScene} />
       </Sider>
 
-      <Layout className={"layout"}>
+      <Layout className={'layout'}>
         <Content> {stegContent} </Content>
       </Layout>
     </Layout>
