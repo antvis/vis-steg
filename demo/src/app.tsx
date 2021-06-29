@@ -2,14 +2,16 @@ import React, { useState } from 'react';
 import { Layout, Menu } from 'antd';
 import EncoderPanel from './Encoder';
 import DecoderPanel from './Decoder';
-import { StegSiderInfo, STEG_SIDER_INFOS } from './ consts/stegSiderInfo';
+import Img2VisPanel from './Img2Vis';
 import PipelinePanel from './Pipeline';
+import Vis2ImgPanel from './Vis2Img';
+import { StegSiderInfo, STEG_SIDER_INFOS } from './consts/stegSiderInfo';
 import './index.less';
 
 const { Content, Sider } = Layout;
 
 export default function App() {
-  const [stegScene, setStegScene] = useState<StegSiderInfo>(STEG_SIDER_INFOS[0]);
+  const [stegScene, setStegScene] = useState<StegSiderInfo>(STEG_SIDER_INFOS[3]);
   const [siderCollapsed, setSiderCollapsed] = useState<boolean>(false);
 
   const StegSider = ({ curStegInfo }: { curStegInfo: StegSiderInfo }) => {
@@ -43,6 +45,12 @@ export default function App() {
       break;
     case 'Decoder':
       stegContent = <DecoderPanel width="500px" />;
+      break;
+    case 'Vis2Img':
+      stegContent = <Vis2ImgPanel width="500px" />;
+      break;
+    case 'Img2Vis':
+      stegContent = <Img2VisPanel width="400px" />;
       break;
     default:
       break;

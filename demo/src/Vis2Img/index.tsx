@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Card } from 'antd';
-import EncoderCard from './EncoderCard';
-import EncodedImgCard from './EncodedImgCard';
+import EncodedImgCard from '../Encoder/EncodedImgCard';
+import VisCard from './VisCard';
 import './index.less';
 
-const EncoderPanel = ({ width }: { width: string | number }) => {
+const Vis2ImgPanel = ({ width }: { width: string | number }) => {
   const [encodedImg, setEncodedImg] = useState<string>();
 
   const getEncodedImg = (image: string) => {
@@ -18,7 +18,7 @@ const EncoderPanel = ({ width }: { width: string | number }) => {
         marginTop: '25px'
       }}
     >
-      <EncoderCard setEncodedImg={getEncodedImg} />
+      <VisCard setEncodedImg={getEncodedImg} />
 
       <Card hoverable className={'uploadImgPanel'} title="Encoded Image">
         <EncodedImgCard encodedImg={encodedImg} />
@@ -28,4 +28,4 @@ const EncoderPanel = ({ width }: { width: string | number }) => {
   );
 };
 
-export default EncoderPanel;
+export default Vis2ImgPanel;

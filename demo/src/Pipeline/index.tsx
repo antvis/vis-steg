@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { Card, Button, Spin, Typography } from 'antd';
-import { PictureFilled } from '@ant-design/icons';
-import ImagePreview from '../components/ImagePreview';
+import { Card, Button, Spin } from 'antd';
 import EncoderCard from '../Encoder/EncoderCard';
 import { decodeImg } from '../util';
+import DecodeSecretCard from '../Decoder/DecodeSecretCard';
+import EncodedImgCard from '../Encoder/EncodedImgCard';
 import './index.less';
-
-const { Paragraph } = Typography;
 
 const PipelinePanel = ({ width }: { width: string | number }) => {
   const [encodedImg, setEncodedImg] = useState<string>();
@@ -55,15 +53,8 @@ const PipelinePanel = ({ width }: { width: string | number }) => {
         }}
       >
         <Card hoverable className={'uploadImgPanel'} title="Encoded Image">
-          {encodedImg ? (
-            <ImagePreview image={encodedImg}></ImagePreview>
-          ) : (
-            <div className={'localContainer'}>
-              <p className={'localLogo'}>
-                <PictureFilled />
-              </p>
-            </div>
-          )}
+          <EncodedImgCard encodedImg={encodedImg} />
+
           <Spin spinning={stopUploadImg}>
             <Button
               key={'Decode'}
@@ -80,11 +71,8 @@ const PipelinePanel = ({ width }: { width: string | number }) => {
           </Spin>
         </Card>
 
-        <Card hoverable className={'uploadImgPanel'} title="Decoded Secrets">
-          <Paragraph>
-            <pre>{decSecret}</pre>
-          </Paragraph>
-        </Card>
+        <DecodeSecretCard decSecret={decSecret} />
+
       </div>
     </div>
   );

@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
-import { Card, Typography } from 'antd';
 import DecoderCard from './DecoderCard';
+import DecodeSecretCard from './DecodeSecretCard';
 import './index.less';
-
-const { Paragraph } = Typography;
 
 const DecoderPanel = ({ width }: { width: string | number }) => {
   const [decSecret, setDecSecret] = useState<string>('');
@@ -16,15 +14,14 @@ const DecoderPanel = ({ width }: { width: string | number }) => {
     <div
       style={{
         width: `${width}`,
+        marginTop: '25px'
       }}
     >
       <DecoderCard setDecSecret={getDecSecret} />
-      <Card hoverable className={'uploadImgPanel'} title="Decoded Secrets">
-        <Paragraph>
-          <pre>{decSecret}</pre>
-        </Paragraph>
-      </Card>
-    </div>
+
+      <DecodeSecretCard decSecret={decSecret} />
+
+    </div >
   );
 };
 
