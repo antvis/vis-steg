@@ -3,14 +3,14 @@ import { utf8Encode, utf8Decode } from './utf8EncDec';
 
 export function str2Bits(str: string): string {
   const utf8Array = utf8Encode(str);
-  let bitsResult = "";
+  let bitsResult = '';
   for (let i = 0; i < utf8Array.length; i += 1) {
     for (let j = 128; j > 0; j = Math.floor(j / 2)) {
       if (Math.floor(utf8Array[i] / j)) {
-        bitsResult += "1";
+        bitsResult += '1';
         utf8Array[i] -= j;
       } else {
-        bitsResult += "0";
+        bitsResult += '0';
       }
     }
   }

@@ -1,7 +1,7 @@
 /* eslint-disable operator-assignment */
 // import { cloneDeep } from 'lodash';
-import { initOptions } from "../util/iniOptions";
-import { bits2Str, str2Bits } from "../util/processBits";
+import { initOptions } from '../util/iniOptions';
+import { bits2Str, str2Bits } from '../util/processBits';
 
 const maskValues = {
   maskONEValues: [1, 2, 4, 8, 16, 32, 64, 128],
@@ -13,7 +13,7 @@ const maskValues = {
  * @public
  */
 export class LSBSteg {
-  private headStr = "enc$";
+  private headStr = 'enc$';
 
   private headBitsLen = this.headStr.length * 8;
 
@@ -38,7 +38,7 @@ export class LSBSteg {
   private imgChannel: number = 0;
 
   initProps() {
-    this.headStr = "enc$";
+    this.headStr = 'enc$';
     this.headBitsLen = this.headStr.length * 8;
     this.bitIdx = 0;
     this.maskONE = maskValues.maskONEValues[this.bitIdx];
@@ -91,7 +91,7 @@ export class LSBSteg {
           this.curHeight = 0;
           // the last mask 1000000
           if (this.maskONE === 128) {
-            throw new Error("No available slot remaining (image filled)");
+            throw new Error('No available slot remaining (image filled)');
           }
           else {
             this.bitIdx += 1;
@@ -128,15 +128,15 @@ export class LSBSteg {
 
   readBits({ numBits }: { numBits: number }): string {
     const { imgBitmapData } = this;
-    let bits = "";
+    let bits = '';
     for (let i = 0; i < numBits; i += 1) {
       const curPos = this.curHeight * this.imgWidth * 4 + this.curWidth * 4 + this.curChannel;
       let val = imgBitmapData[curPos];
       // eslint-disable-next-line no-bitwise
       val = val & this.maskONE;
       this.nextSlot();
-      if (val > 0) bits += "1";
-      else bits += "0";
+      if (val > 0) bits += '1';
+      else bits += '0';
     }
     return bits;
   }
@@ -155,12 +155,12 @@ export class LSBSteg {
     this.imgBitmapData = imgBitmapData;
     this.imgChannel = this.imgBitmapData.length / this.imgHeight / this.imgWidth;
     if (this.imgChannel !== 4) {
-      throw new Error("Decode image must have 4 channels!");
+      throw new Error('Decode image must have 4 channels!');
     }
     const decodedHeadBinary = this.readBits({ numBits: this.headBitsLen });
     const decodedHeadStr = bits2Str(decodedHeadBinary);
     if (decodedHeadStr !== this.headStr) {
-      throw new Error("Failed to decode the secret!");
+      throw new Error('Failed to decode the secret!');
     }
     const infoLenBinary = this.readBits({ numBits: 64 });
     const infoLen = parseInt(infoLenBinary, 2);
@@ -175,7 +175,7 @@ export class LSBSteg {
    * @param options -
    */
   writeLSB(options?: LSBEncodeOptions): number[] | undefined {
-    const opts = initOptions(options, { imgBitmapData: [], imgHeight: 0, imgWidth: 0, imgChannel: 0, secretInfo: "" });
+    const opts = initOptions(options, { imgBitmapData: [], imgHeight: 0, imgWidth: 0, imgChannel: 0, secretInfo: '' });
     const { imgBitmapData, imgHeight, imgWidth, secretInfo } = opts;
     this.initProps();
     this.imgHeight = imgHeight;
@@ -188,7 +188,7 @@ export class LSBSteg {
     const infoLen = bitStream.length / 8;
     // remain more bits for other information, such as the head string
     if (imgHeight * imgWidth * 3 < infoLen + 100) {
-      throw new Error("Carrier image not big enough to hold all the datas to steganography");
+      throw new Error('Carrier image not big enough to hold all the datas to steganography');
     }
     const infoLenBinary = this.getBinaryVal({ val: infoLen, bitSize: 64 });
     const mergeStream = headStrBinary + infoLenBinary + bitStream;

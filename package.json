@@ -55,7 +55,7 @@
     "browser-resolve": "^2.0.0",
     "classnames": "^2.3.1",
     "css-loader": "^5.2.0",
-    "eslint": "^7.28.0",
+    "eslint": "^7.29.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
     "eslint-import-resolver-typescript": "^2.4.0",
