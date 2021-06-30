@@ -5,12 +5,13 @@ const { Paragraph } = Typography;
 
 const DecodeSecretCard = ({ decSecret }: { decSecret: string }) => {
   return (
-    <Card hoverable className={'uploadImgPanel'} title="Decoded Secrets"
-    >
-      <div style={{
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
+    <Card hoverable className={'uploadImgPanel'} title="Decoded Secrets">
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         <div>
           <Paragraph
             style={{
@@ -19,13 +20,13 @@ const DecodeSecretCard = ({ decSecret }: { decSecret: string }) => {
               marginBottom: '0px',
             }}
             copyable={{ text: decSecret }}
-          >
-          </Paragraph>
+          ></Paragraph>
         </div>
 
         <Paragraph>
           <pre>
-            <div id="test"
+            <div
+              id="test"
               style={{
                 overflow: 'auto',
                 minHeight: '10px',
@@ -37,7 +38,7 @@ const DecodeSecretCard = ({ decSecret }: { decSecret: string }) => {
           </pre>
         </Paragraph>
       </div>
-    </Card >
+    </Card>
   );
 };
 

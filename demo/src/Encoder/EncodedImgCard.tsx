@@ -7,10 +7,12 @@ import './index.less';
 
 const EncodedImgCard = ({ encodedImg }: { encodedImg: string | undefined }) => {
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-    }}>
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       <div>
         <Button
           style={{

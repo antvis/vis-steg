@@ -60,10 +60,8 @@ export class LSBSteg {
     for (let i = 0; i < this.imgHeight; i += 1) {
       for (let j = 0; j < this.imgWidth; j += 1) {
         for (let k = 0; k < 3; k += 1) {
-          if (this.imgChannel === 1)
-            adjustImg.push(this.imgBitmapData[i * this.imgWidth + j]);
-          else
-            adjustImg.push(this.imgBitmapData[i * this.imgWidth * this.imgChannel + j * this.imgChannel + k]);
+          if (this.imgChannel === 1) adjustImg.push(this.imgBitmapData[i * this.imgWidth + j]);
+          else adjustImg.push(this.imgBitmapData[i * this.imgWidth * this.imgChannel + j * this.imgChannel + k]);
         }
         adjustImg.push(255);
       }
@@ -73,7 +71,7 @@ export class LSBSteg {
   }
 
   // get the binary value of an int as a byte
-  getBinaryVal({ val, bitSize }: { val: number, bitSize: number }): string {
+  getBinaryVal({ val, bitSize }: { val: number; bitSize: number }): string {
     let binVal = val.toString(2);
     while (binVal.length < bitSize) {
       binVal = `0${binVal}`;
@@ -92,18 +90,14 @@ export class LSBSteg {
           // the last mask 1000000
           if (this.maskONE === 128) {
             throw new Error('No available slot remaining (image filled)');
-          }
-          else {
+          } else {
             this.bitIdx += 1;
             this.maskONE = maskValues.maskONEValues[this.bitIdx];
             this.maskZERO = maskValues.maskZEROValues[this.bitIdx];
           }
-        }
-        else this.curHeight += 1;
-      }
-      else this.curWidth += 1;
-    }
-    else this.curChannel += 1;
+        } else this.curHeight += 1;
+      } else this.curWidth += 1;
+    } else this.curChannel += 1;
   }
 
   putBits({ bits }: { bits: string }): number[] {
@@ -115,8 +109,7 @@ export class LSBSteg {
       if (parseInt(bits[i], 10) === 1) {
         // eslint-disable-next-line no-bitwise
         RGBAVal[this.curChannel] = RGBAVal[this.curChannel] | this.maskONE;
-      }
-      else {
+      } else {
         // eslint-disable-next-line no-bitwise
         RGBAVal[this.curChannel] = RGBAVal[this.curChannel] & this.maskZERO;
       }

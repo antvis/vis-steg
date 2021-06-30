@@ -9,6 +9,6 @@ const downloadFile = (blob: Blob, fileName: string) => {
 };
 
 export async function downloadPng(imgUrl: string, exportName: string = 'default') {
-  const b64toBlob = await fetch(`${imgUrl}`).then(res => res.blob());
+  const b64toBlob = await fetch(`${imgUrl}`).then((res) => res.blob());
   downloadFile(b64toBlob, `${exportName}.png`);
 }

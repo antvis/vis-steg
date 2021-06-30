@@ -3,8 +3,7 @@ import { g2plotRender } from '../util';
 import { Chart } from '../consts/chartSamples';
 import './index.less';
 
-const ChartView = ({ curChartSamp, getChartObj }: { curChartSamp: Chart, getChartObj: (chartObj: any) => void }) => {
-
+const ChartView = ({ curChartSamp, getChartObj }: { curChartSamp: Chart; getChartObj: (chartObj: any) => void }) => {
   useEffect(() => {
     // console.log(`chart.type = ${curChartSamp.type}`);
     let plot: any;
@@ -21,9 +20,7 @@ const ChartView = ({ curChartSamp, getChartObj }: { curChartSamp: Chart, getChar
     };
   }, [curChartSamp]);
 
-  return (
-    <div id={'chart_container'} style={{ height: '300px' }}></div>
-  );
+  return <div id={'chart_container'} style={{ height: '300px' }}></div>;
 };
 
 export default ChartView;
