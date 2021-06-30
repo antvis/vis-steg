@@ -14,7 +14,11 @@ export async function decodeImg(imgUrl: string): Promise<string | undefined> {
 
     const encodedImgBitmap = Array.from(encodedImgData.data);
     const testLSBSteg = new LSBSteg();
-    const decodeSecret = testLSBSteg.readLSB({ imgBitmapData: encodedImgBitmap, imgHeight: img.height, imgWidth: img.width });
+    const decodeSecret = testLSBSteg.readLSB({
+      imgBitmapData: encodedImgBitmap,
+      imgHeight: img.height,
+      imgWidth: img.width,
+    });
     if (decodeSecret == null || decodeSecret.length === 0) {
       throw new Error('Failed to decode the secret');
     }

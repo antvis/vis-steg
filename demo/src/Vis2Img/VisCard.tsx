@@ -22,65 +22,60 @@ const VisCard = ({ setEncodedImg }: { setEncodedImg: (image: string) => void }) 
     setStopUploadImg(true);
     html2canvas(chartObj.ele, {
       // backgroundColor: 'white',
-    }).then((canvas: any) => {
-      const imgData = canvas.toDataURL('image/png');
-      // downloadPng(imgData, "encodedImg");
+    })
+      .then((canvas: any) => {
+        const imgData = canvas.toDataURL('image/png');
+        // downloadPng(imgData, "encodedImg");
 
-      const inputSecret = JSON.stringify(curChartSamp);
-      // console.log(`inputSecret = ${inputSecret}`);
-      encodeImg(imgData, inputSecret)
-        .then((result) => {
-          if (result) {
-            setEncodedImg(result);
-          } else {
-            throw new Error('Failed to encode the secret!');
-          }
-          setStopUploadImg(false);
-        })
-        .catch(() => {
-          // eslint-disable-next-line no-alert
-          alert('Failed to encode the secret!');
-          setEncodedImg(undefined);
-          setStopUploadImg(false);
-        });
-    }).catch(() => {
-      throw (new Error('Failed to get chart image URL'));
-    });
+        const inputSecret = JSON.stringify(curChartSamp);
+        // console.log(`inputSecret = ${inputSecret}`);
+        encodeImg(imgData, inputSecret)
+          .then((result) => {
+            if (result) {
+              setEncodedImg(result);
+            } else {
+              throw new Error('Failed to encode the secret!');
+            }
+            setStopUploadImg(false);
+          })
+          .catch(() => {
+            // eslint-disable-next-line no-alert
+            alert('Failed to encode the secret!');
+            setEncodedImg(undefined);
+            setStopUploadImg(false);
+          });
+      })
+      .catch(() => {
+        throw new Error('Failed to get chart image URL');
+      });
   };
 
   const chartSelectMenu = (
     <Menu mode="horizontal" defaultSelectedKeys={[`chartID_${CHART_SAMPLES[0].name}_${CHART_SAMPLES[0].charts[0].id}`]}>
       <SubMenu key="ChartSamplesMenu" icon={<DownOutlined />} title="Chart Samples">
-        {
-          CHART_SAMPLES.map((chartCateg) => (
-            <Menu.ItemGroup title={chartCateg.name} key={`chartCateg_${chartCateg.name}`}>
-              {chartCateg.charts.map((chart) => (
-                <Menu.Item
-                  key={`chartID_${chartCateg.name}_${chart.id}`}
-                  onClick={() => {
-                    setCurChartSamp(chart);
-                  }}
-                >
-                  <p >{`${chart.type}-${chart.id}`}</p>
-                </Menu.Item>
-              ))}
-            </Menu.ItemGroup>
-          ))
-        }
+        {CHART_SAMPLES.map((chartCateg) => (
+          <Menu.ItemGroup title={chartCateg.name} key={`chartCateg_${chartCateg.name}`}>
+            {chartCateg.charts.map((chart) => (
+              <Menu.Item
+                key={`chartID_${chartCateg.name}_${chart.id}`}
+                onClick={() => {
+                  setCurChartSamp(chart);
+                }}
+              >
+                <p>{`${chart.type}-${chart.id}`}</p>
+              </Menu.Item>
+            ))}
+          </Menu.ItemGroup>
+        ))}
       </SubMenu>
-    </Menu >
-
+    </Menu>
   );
   return (
-
     <Card hoverable className={'uploadImgPanel'} title="Encoder">
       <Spin spinning={stopUploadImg}>
         {/* <UploadImgModal key="Encode" reload={reloadUpImgPanel} setUploadImg={getUploadImg}></UploadImgModal> */}
 
-        <div
-        >
-          {chartSelectMenu}
-        </div>
+        <div>{chartSelectMenu}</div>
 
         <div
           style={{
@@ -106,9 +101,6 @@ const VisCard = ({ setEncodedImg }: { setEncodedImg: (image: string) => void }) 
         </div>
       </Spin>
     </Card>
-
-
-
   );
 };
 

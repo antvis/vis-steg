@@ -16,7 +16,14 @@ export async function encodeImg(imgUrl: string, secretInfo: string, stegMethod =
       const containerImgData = containerCanvascxt.getImageData(0, 0, img.width, img.height);
       const containerImgBitmap = Array.from(containerImgData.data);
       const testLSBSteg = new LSBSteg();
-      const encodedImgBitmap = Uint8ClampedArray.from(testLSBSteg.writeLSB({ imgBitmapData: containerImgBitmap, imgHeight: img.height, imgWidth: img.width, secretInfo }));
+      const encodedImgBitmap = Uint8ClampedArray.from(
+        testLSBSteg.writeLSB({
+          imgBitmapData: containerImgBitmap,
+          imgHeight: img.height,
+          imgWidth: img.width,
+          secretInfo,
+        })
+      );
       const encodedImgData = new ImageData(encodedImgBitmap, containerImgCanvas.width, containerImgCanvas.height);
 
       containerCanvascxt.putImageData(encodedImgData, 0, 0);

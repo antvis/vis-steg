@@ -72,7 +72,6 @@ const PipelinePanel = ({ width }: { width: string | number }) => {
         </Card>
 
         <DecodeSecretCard decSecret={decSecret} />
-
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ const Vis2ImgPanel = ({ width }: { width: string | number }) => {
     <div
       style={{
         width: `${width}`,
-        marginTop: '25px'
+        marginTop: '25px',
       }}
     >
       <VisCard setEncodedImg={getEncodedImg} />
@@ -24,7 +24,6 @@ const Vis2ImgPanel = ({ width }: { width: string | number }) => {
         <EncodedImgCard encodedImg={encodedImg} />
       </Card>
     </div>
-
   );
 };
 

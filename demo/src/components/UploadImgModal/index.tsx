@@ -8,7 +8,7 @@ import './index.less';
 const { TabPane } = Tabs;
 const { Dragger } = Upload;
 
-const UploadImgModal = ({ reload, setUploadImg }: { reload: boolean, setUploadImg: (image: string) => void }) => {
+const UploadImgModal = ({ reload, setUploadImg }: { reload: boolean; setUploadImg: (image: string) => void }) => {
   const [image, setImage] = useState<string>();
   useEffect(() => {
     setUploadImg(image);

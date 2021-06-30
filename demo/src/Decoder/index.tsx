@@ -14,14 +14,13 @@ const DecoderPanel = ({ width }: { width: string | number }) => {
     <div
       style={{
         width: `${width}`,
-        marginTop: '25px'
+        marginTop: '25px',
       }}
     >
       <DecoderCard setDecSecret={getDecSecret} />
 
       <DecodeSecretCard decSecret={decSecret} />
-
-    </div >
+    </div>
   );
 };
 

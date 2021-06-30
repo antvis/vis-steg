@@ -16,14 +16,12 @@ const Img2VisPanel = ({ width }: { width: string | number }) => {
   if (decSecret.length > 0) {
     try {
       decSecretJSON = JSON.parse(decSecret);
-    }
-    catch (err) {
+    } catch (err) {
       // eslint-disable-next-line no-alert
       alert('Failed to render the visualization!');
       decSecretJSON = JSON.parse(JSON.stringify(decSecret));
     }
-  }
-  else {
+  } else {
     decSecretJSON = JSON.parse(JSON.stringify(decSecret));
   }
 
@@ -34,15 +32,21 @@ const Img2VisPanel = ({ width }: { width: string | number }) => {
 
     let plot: any;
 
-    if (decSecretJSON.constructor === Object && decSecretJSON !== undefined &&
+    if (
+      decSecretJSON.constructor === Object &&
+      decSecretJSON !== undefined &&
       // eslint-disable-next-line no-prototype-builtins
-      decSecretJSON.hasOwnProperty('data') && decSecretJSON.hasOwnProperty('config')) {
+      decSecretJSON.hasOwnProperty('data') &&
+      decSecretJSON.hasOwnProperty('config')
+    ) {
       const { data } = decSecretJSON;
-      fetch(data).then((res) => {
-        return res.json();
-      }).then((data) => {
-        plot = g2plotRender('test_container', decSecretJSON.type, data, decSecretJSON.config);
-      });
+      fetch(data)
+        .then((res) => {
+          return res.json();
+        })
+        .then((data) => {
+          plot = g2plotRender('test_container', decSecretJSON.type, data, decSecretJSON.config);
+        });
       return function cleanup() {
         plot.destroy();
       };
@@ -69,7 +73,6 @@ const Img2VisPanel = ({ width }: { width: string | number }) => {
         </Card>
 
         <DecodeSecretCard decSecret={decSecret} />
-
       </div>
     </div>
   );
