@@ -21,10 +21,10 @@ module.exports = {
       jsx: true,
     },
   },
-  plugins: ['@typescript-eslint', 'import'],
+  plugins: ['@typescript-eslint', 'import', 'react'],
   rules: {
     semi: 'error',
-    'quotes': [1, 'single'],
+    quotes: [1, 'single'],
     'no-unused-vars': 'off',
     '@typescript-eslint/no-unused-vars': ['error'],
     'import/extensions': 'off',

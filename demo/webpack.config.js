@@ -8,7 +8,7 @@ const prodConfig = {
     app: './src/index',
   },
   output: {
-    library: 'ColorSchema',
+    library: 'VisSteg',
     libraryTarget: 'umd',
     path: path.resolve(__dirname, 'dist/'),
     filename: 'index.js',
