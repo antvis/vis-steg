@@ -2,9 +2,9 @@ import { LSBSteg } from '../src';
 
 describe('test', () => {
   it('enc and dec should work', () => {
-    let testCase = 5;
+    let testCase = 10;
     const mxImgSide = 300;
-    const mnImgSide = 10;
+    const mnImgSide = 20;
     const imgChannelList = [1, 3, 4];
     while (testCase > 0) {
       const imgHeight = Math.floor(Math.random() * (mxImgSide - mnImgSide + 1)) + mnImgSide;
@@ -99,7 +99,7 @@ describe('test', () => {
         '^',
         '&',
         '`',
-        "'",
+        '\'',
         '=',
         '<',
         '>',
@@ -114,7 +114,7 @@ describe('test', () => {
         '|',
       ];
       const mnMsgLen = Math.floor((imgHeight * imgWidth * 3) / 8) + 1;
-      const mxMsgLen = Math.floor(imgHeight * imgWidth * 3 - 150);
+      const mxMsgLen = Math.floor(imgHeight * imgWidth * 3 / 2 - 150);
       const secretArrayLength = Math.floor(Math.random() * (mxMsgLen - mnMsgLen + 1)) + mnMsgLen;
       const testSecretArray = new Array(secretArrayLength);
       for (let i = 0; i < secretArrayLength; i += 1) {
