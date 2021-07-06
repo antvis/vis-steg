@@ -8,7 +8,7 @@ import './index.less';
 const { TabPane } = Tabs;
 const { Dragger } = Upload;
 
-const UploadImgModal = ({ reload, setUploadImg }: { reload: boolean; setUploadImg: (image: string) => void }) => {
+const UploadImgModal = ({ reload, setUploadImg }: { reload: boolean; setUploadImg: (image: string | undefined) => void }) => {
   const [image, setImage] = useState<string>();
   useEffect(() => {
     setUploadImg(image);
@@ -36,7 +36,7 @@ const UploadImgModal = ({ reload, setUploadImg }: { reload: boolean; setUploadIm
           setImage(undefined);
         }}
       >
-        <TabPane tab="本地上传" key="local">
+        <TabPane tab="Native Upload" key="local">
           {image ? (
             <ImagePreview image={image}></ImagePreview>
           ) : (
@@ -50,17 +50,17 @@ const UploadImgModal = ({ reload, setUploadImg }: { reload: boolean; setUploadIm
                 <p className={'localLogo'}>
                   <PictureFilled />
                 </p>
-                <p className={'localText'}>浏览或拖拽图片</p>
+                <p className={'localText'}>Browse or drag images</p>
               </Dragger>
             </div>
           )}
         </TabPane>
-        <TabPane tab="以url传图" key="url">
+        <TabPane tab="By URL" key="url">
           {image ? (
             <ImagePreview image={image} />
           ) : (
             <div className={'sourceContainer'}>
-              <p className={'sourceContainerText'}>图片URL:</p>
+              <p className={'sourceContainerText'}>Image URL:</p>
               <Input
                 placeholder="http://"
                 className={classNames('sourceContainerInput', 'urlInput')}

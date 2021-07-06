@@ -1,7 +1,7 @@
 /**
- * 合并默认值
- * @param options - 需要初始化的对象
- * @param defaults - 默认值
+ * merge the options and defaults
+ * @param options
+ * @param defaults
  */
 export function initOptions<T, U>(options: T, defaults: U): T & U {
   const def: any = { ...defaults };

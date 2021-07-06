@@ -167,7 +167,7 @@ export class LSBSteg {
    *
    * @param options -
    */
-  writeLSB(options?: LSBEncodeOptions): number[] | undefined {
+  writeLSB(options?: LSBEncodeOptions): number[] {
     const opts = initOptions(options, { imgBitmapData: [], imgHeight: 0, imgWidth: 0, imgChannel: 0, secretInfo: '' });
     const { imgBitmapData, imgHeight, imgWidth, secretInfo } = opts;
     this.initProps();
