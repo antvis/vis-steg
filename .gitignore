@@ -79,3 +79,5 @@ temp.diff
 
 # ignore dist files
 .vscode/
+
+**/bundle.*
