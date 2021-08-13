@@ -2,7 +2,7 @@ import { LSBSteg } from '../../../src';
 import { loadImg } from './loadImg';
 
 // Get the encoded image from img url
-export async function encodeImg(imgUrl: string, secretInfo: string, stegMethod = 'lsb'): Promise<string | undefined> {
+export async function encodeImg(imgUrl: string | undefined, secretInfo: string, stegMethod = 'lsb'): Promise<string | undefined> {
   try {
     // TEMP
     console.log(stegMethod);
@@ -19,7 +19,7 @@ export async function encodeImg(imgUrl: string, secretInfo: string, stegMethod =
     if (stegMethod === 'lsb') {
       const testLSBSteg = new LSBSteg();
       const encodedImgBitmap = Uint8ClampedArray.from(
-        testLSBSteg.writeLSB({
+        await testLSBSteg.writeLSB({
           imgBitmapData: containerImgBitmap,
           imgHeight: img.height,
           imgWidth: img.width,

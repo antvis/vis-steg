@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Button, Spin } from 'antd';
 import EncoderCard from '../Encoder/EncoderCard';
 import { decodeImg } from '../util';
@@ -10,14 +10,13 @@ const PipelinePanel = ({ width }: { width: string | number }) => {
   const [encodedImg, setEncodedImg] = useState<string>();
   const [decSecret, setDecSecret] = useState<string>('');
   const [stopUploadImg, setStopUploadImg] = useState<boolean>(false);
-  const [reloadUpImgPanel, setReloadUpImgPanel] = useState<boolean>(false);
 
   const handleDecodeBtn = () => {
     setStopUploadImg(true);
     decodeImg(encodedImg)
       .then((result) => {
         if (result) {
-          // console.log("decodeSecret = " + result);
+          // console.log(`decodeSecret = ${result}`);
           setDecSecret(result);
         } else {
           throw new Error('Failed to decode the secret!');
@@ -27,15 +26,19 @@ const PipelinePanel = ({ width }: { width: string | number }) => {
       .catch(() => {
         // eslint-disable-next-line no-alert
         alert('Failed to decode the secret!');
-        setReloadUpImgPanel(!reloadUpImgPanel);
         setDecSecret('');
         setStopUploadImg(false);
       });
   };
 
-  const getEncodedImg = (image: string) => {
+  const getEncodedImg = (image: string | undefined) => {
     setEncodedImg(image);
   };
+
+  useEffect(() => {
+    if (encodedImg === undefined)
+      setDecSecret('');
+  }, [encodedImg]);
 
   return (
     <div className={'pipeLinePanel'}>
@@ -72,6 +75,7 @@ const PipelinePanel = ({ width }: { width: string | number }) => {
         </Card>
 
         <DecodeSecretCard decSecret={decSecret} />
+
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
+// import { DecSecInfo } from '../../../src/util/procQR';
 import { LSBSteg } from '../../../src';
 import { loadImg } from './loadImg';
 
 // Get the secret massage from img url
-export async function decodeImg(imgUrl: string, stegMethod = 'lsb'): Promise<string | undefined> {
+export async function decodeImg(imgUrl: string | undefined, stegMethod = 'lsb'): Promise<string | undefined> {
   try {
     const img = await loadImg(imgUrl);
     const encImgCanvas = document.createElement('canvas');
@@ -13,10 +14,9 @@ export async function decodeImg(imgUrl: string, stegMethod = 'lsb'): Promise<str
     const encodedImgData = encImgcontext.getImageData(0, 0, img.width, img.height);
     const encodedImgBitmap = Array.from(encodedImgData.data);
     let decodeSecret = '';
-
     if (stegMethod === 'lsb') {
       const testLSBSteg = new LSBSteg();
-      decodeSecret = testLSBSteg.readLSB({
+      decodeSecret = await testLSBSteg.readLSB({
         imgBitmapData: encodedImgBitmap,
         imgHeight: img.height,
         imgWidth: img.width,

@@ -9,7 +9,7 @@ const DecoderCard = ({ setDecSecret }: { setDecSecret: (secret: string) => void 
   const [reloadUpImgPanel, setReloadUpImgPanel] = useState<boolean>(false);
   const [upImg, setUpImg] = useState<string>();
 
-  const getUploadImg = (image: string) => {
+  const getUploadImg = (image: string | undefined) => {
     setUpImg(image);
   };
 
@@ -18,8 +18,9 @@ const DecoderCard = ({ setDecSecret }: { setDecSecret: (secret: string) => void 
     decodeImg(upImg)
       .then((result) => {
         if (result) {
-          // console.log("decodeSecret = " + result);
+          // console.log(`decodeSecret = ${JSON.stringify(result)}`);
           setDecSecret(result);
+          // setDecQRUrl(result.QRUrl);
         } else {
           throw new Error('Failed to decode the secret!');
         }

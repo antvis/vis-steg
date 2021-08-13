@@ -2,6 +2,7 @@
 // import { cloneDeep } from 'lodash';
 import { initOptions } from '../util/iniOptions';
 import { bits2Str, str2Bits } from '../util/processBits';
+import { generateQRbits, bits2QR } from '../util/procQR';
 
 const maskValues = {
   maskONEValues: [1, 2, 4, 8, 16, 32, 64, 128],
@@ -55,6 +56,7 @@ export class LSBSteg {
   // transfer a gray image or jpg image to RGBA form
   adjustImgData() {
     this.imgChannel = this.imgBitmapData.length / this.imgHeight / this.imgWidth;
+    // canvas would lost accurate data when opacity isn't equal to 255
     if (this.imgChannel === 4) return;
     const adjustImg = [];
     for (let i = 0; i < this.imgHeight; i += 1) {
@@ -105,6 +107,7 @@ export class LSBSteg {
     const { imgBitmapData } = this;
     for (let i = 0; i < bits.length; i += 1) {
       const curPos = this.curHeight * this.imgWidth * 4 + this.curWidth * 4;
+      // console.log(`curHeight = ${this.curHeight} curWidth = ${this.curWidth} curChannel = ${this.curChannel}`);
       const RGBAVal = imgBitmapData.slice(curPos, curPos + 4);
       if (parseInt(bits[i], 10) === 1) {
         // eslint-disable-next-line no-bitwise
@@ -140,8 +143,13 @@ export class LSBSteg {
    * @param options -
    */
   readLSB(options?: LSBDecodeOptions): string {
-    const opts = initOptions(options, { imgBitmapData: [], imgHeight: 0, imgWidth: 0, imgChannel: 0 });
-    const { imgBitmapData, imgHeight, imgWidth } = opts;
+    const opts = initOptions(options, {
+      imgBitmapData: [], imgHeight: 0, imgWidth: 0, imgChannel: 0, decMode: 'binary'
+    });
+    const { imgBitmapData, imgHeight, imgWidth, decMode } = opts;
+    if (imgBitmapData.length === 0 || imgHeight === 0 || imgWidth === 0) {
+      throw new Error('Empty image data!');
+    }
     this.initProps();
     this.imgHeight = imgHeight;
     this.imgWidth = imgWidth;
@@ -150,8 +158,41 @@ export class LSBSteg {
     if (this.imgChannel !== 4) {
       throw new Error('Decode image must have 4 channels!');
     }
+    if (decMode === 'QRcode') {
+      // return a decoded secret message using QRcode as the error correction
+      const headStream = this.readBits({ numBits: 200 * 200 });
+      const headStr = bits2QR(headStream, 200);
+      if (headStr !== undefined && headStr.length > 0) {
+        let headJSON: any;
+        try {
+          headJSON = JSON.parse(headStr);
+        } catch (err) {
+          throw new Error('Failed to decode the head infomation!');
+        }
+        let mergeSecret = '';
+        if (
+          headJSON.constructor === Object &&
+          headJSON !== undefined &&
+          // eslint-disable-next-line no-prototype-builtins
+          headJSON.hasOwnProperty('headStr') && headJSON.headStr === this.headStr &&
+          // eslint-disable-next-line no-prototype-builtins
+          headJSON.hasOwnProperty('numQR') && headJSON.hasOwnProperty('QRSize')
+        ) {
+          // console.log(`headJSON = ${JSON.stringify(headJSON)}`);
+          for (let i = 0; i < headJSON.numQR; i += 1) {
+            const tmpStream = this.readBits({ numBits: headJSON.QRSize * headJSON.QRSize });
+            const tmpStr = bits2QR(tmpStream, headJSON.QRSize);
+            mergeSecret += tmpStr;
+          }
+        }
+        return mergeSecret;
+      }
+      throw new Error('Failed to decode the head infomation!');
+    }
+
     const decodedHeadBinary = this.readBits({ numBits: this.headBitsLen });
     const decodedHeadStr = bits2Str(decodedHeadBinary);
+    // console.log(`decodedHeadStr = ${decodedHeadStr}`);
     if (decodedHeadStr !== this.headStr) {
       throw new Error('Failed to decode the secret!');
     }
@@ -167,14 +208,31 @@ export class LSBSteg {
    *
    * @param options -
    */
-  writeLSB(options?: LSBEncodeOptions): number[] {
-    const opts = initOptions(options, { imgBitmapData: [], imgHeight: 0, imgWidth: 0, imgChannel: 0, secretInfo: '' });
-    const { imgBitmapData, imgHeight, imgWidth, secretInfo } = opts;
+  async writeLSB(options?: LSBEncodeOptions): Promise<number[]> {
+    const opts = initOptions(options, {
+      imgBitmapData: [], imgHeight: 0, imgWidth: 0, imgChannel: 0,
+      secretInfo: '', encMode: 'binary', QRSize: 200, mxMsgLen: 150
+    });
+    const { imgBitmapData, imgHeight, imgWidth, secretInfo, encMode, QRSize, mxMsgLen } = opts;
+    if (imgBitmapData.length === 0 || imgHeight === 0 || imgWidth === 0) {
+      throw new Error('Empty image data!');
+    }
     this.initProps();
     this.imgHeight = imgHeight;
     this.imgWidth = imgWidth;
     this.imgBitmapData = imgBitmapData;
     this.adjustImgData();
+
+    if (encMode === 'QRcode') {
+      const mergeStream = await generateQRbits(secretInfo, QRSize, mxMsgLen, this.headStr);
+      const infoLen = mergeStream.length / 8;
+      // remain more bits for other information
+      if (imgHeight * imgWidth * 3 < infoLen + 100) {
+        throw new Error('Carrier image not big enough to hold all the datas to steganography');
+      }
+      const newImgBitmapData = this.putBits({ bits: mergeStream });
+      return newImgBitmapData;
+    }
 
     const headStrBinary = str2Bits(this.headStr);
     const bitStream = str2Bits(secretInfo);
@@ -197,6 +255,12 @@ export interface LSBEncodeOptions {
   imgWidth?: number;
   imgChannel?: number;
   secretInfo?: string;
+  /* 'binary' (default) | 'QRcode' */
+  encMode?: string;
+  /* size of each QRcode */
+  QRSize?: number;
+  /* max length of messages in a QRcode */
+  mxMsgLen?: number;
 }
 
 /** @public */
@@ -205,4 +269,6 @@ export interface LSBDecodeOptions {
   imgHeight?: number;
   imgWidth?: number;
   imgChannel?: number;
+  /* 'binary' (default) | 'QRcode' */
+  decMode?: string;
 }

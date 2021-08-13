@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Card, Button, Spin, Input } from 'antd';
+import { SettingOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
 import UploadImgModal from '../components/UploadImgModal';
 import { encodeImg } from '../util';
@@ -7,13 +8,13 @@ import './index.less';
 
 const { TextArea } = Input;
 
-const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string) => void }) => {
+const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string | undefined) => void }) => {
   const [inputSecret, setInputSecret] = useState<string>('');
   const [stopUploadImg, setStopUploadImg] = useState<boolean>(false);
   const [reloadUpImgPanel, setReloadUpImgPanel] = useState<boolean>(false);
   const [upImg, setUpImg] = useState<string>();
 
-  const getUploadImg = (image: string) => {
+  const getUploadImg = (image: string | undefined) => {
     setUpImg(image);
   };
 
@@ -40,7 +41,20 @@ const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string) => void
   };
 
   return (
-    <Card hoverable className={'uploadImgPanel'} title="Encoder">
+    <Card hoverable className={'uploadImgPanel'} title="Encoder" extra={
+      <div>
+        <Button
+          style={{
+            float: 'right',
+            marginRight: '0px',
+            marginBottom: '0px',
+          }}
+          type="link"
+          icon={<SettingOutlined />}
+          size={'middle'}
+        />
+      </div>
+    }>
       <Spin spinning={stopUploadImg}>
         <UploadImgModal key="Encode" reload={reloadUpImgPanel} setUploadImg={getUploadImg}></UploadImgModal>
 

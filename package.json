@@ -94,5 +94,10 @@
     "url": "https://github.com/antvis/vis-steg/issues"
   },
   "homepage": "https://antvis.github.io/vis-steg",
-  "dependencies": {}
+  "dependencies": {
+    "canvas": "^2.8.0",
+    "jsqr": "^1.4.0",
+    "pica": "^7.1.0",
+    "qrcode": "^1.4.4"
+  }
 }

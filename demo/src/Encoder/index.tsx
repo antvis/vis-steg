@@ -7,7 +7,7 @@ import './index.less';
 const EncoderPanel = ({ width }: { width: string | number }) => {
   const [encodedImg, setEncodedImg] = useState<string>();
 
-  const getEncodedImg = (image: string) => {
+  const getEncodedImg = (image: string | undefined) => {
     setEncodedImg(image);
   };
 

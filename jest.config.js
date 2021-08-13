@@ -10,4 +10,5 @@ module.exports = {
   collectCoverage: false,
   testRegex: "/__tests__/.*.test.ts?$",
   verbose: false,
+  testTimeout: 100000,
 };
