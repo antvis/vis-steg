@@ -12,7 +12,7 @@ const Img2VisPanel = ({ width }: { width: string | number }) => {
     setDecSecret(secret);
   };
 
-  let decSecretJSON: JSON;
+  let decSecretJSON: any;
   if (decSecret.length > 0) {
     try {
       decSecretJSON = JSON.parse(decSecret);
@@ -36,8 +36,7 @@ const Img2VisPanel = ({ width }: { width: string | number }) => {
       decSecretJSON.constructor === Object &&
       decSecretJSON !== undefined &&
       // eslint-disable-next-line no-prototype-builtins
-      decSecretJSON.hasOwnProperty('data') &&
-      decSecretJSON.hasOwnProperty('config')
+      decSecretJSON.hasOwnProperty('data') && decSecretJSON.hasOwnProperty('config')
     ) {
       const { data } = decSecretJSON;
       fetch(data)

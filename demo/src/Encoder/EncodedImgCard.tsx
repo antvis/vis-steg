@@ -25,6 +25,8 @@ const EncodedImgCard = ({ encodedImg }: { encodedImg: string | undefined }) => {
           size={'middle'}
           disabled={!encodedImg}
           onClick={() => {
+            if (encodedImg === undefined)
+              throw new Error('Image is undefined');
             downloadPng(encodedImg, 'encodedImg');
           }}
         />

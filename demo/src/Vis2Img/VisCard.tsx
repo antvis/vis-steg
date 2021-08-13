@@ -9,7 +9,7 @@ import './index.less';
 
 const { SubMenu } = Menu;
 
-const VisCard = ({ setEncodedImg }: { setEncodedImg: (image: string) => void }) => {
+const VisCard = ({ setEncodedImg }: { setEncodedImg: (image: string | undefined) => void }) => {
   const [stopUploadImg, setStopUploadImg] = useState<boolean>(false);
   const [curChartSamp, setCurChartSamp] = useState<Chart>(CHART_SAMPLES[0].charts[0]);
   const [chartObj, setChartObj] = useState<any>();

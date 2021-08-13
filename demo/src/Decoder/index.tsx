@@ -20,6 +20,7 @@ const DecoderPanel = ({ width }: { width: string | number }) => {
       <DecoderCard setDecSecret={getDecSecret} />
 
       <DecodeSecretCard decSecret={decSecret} />
+
     </div>
   );
 };
