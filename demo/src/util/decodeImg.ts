@@ -1,10 +1,12 @@
-// import { DecSecInfo } from '../../../src/util/procQR';
-import { LSBSteg } from '../../../src';
+import { initOptions } from '../../../src/util/iniOptions';
+import { LSBSteg, LSBDecodeOptions } from '../../../src';
 import { loadImg } from './loadImg';
 
 // Get the secret massage from img url
-export async function decodeImg(imgUrl: string | undefined, stegMethod = 'lsb'): Promise<string | undefined> {
+export async function decodeImg(imgUrl: string | undefined, stegOpts?: LSBDecodeOptions, stegMethod = 'lsb'): Promise<string | undefined> {
   try {
+    const opts = initOptions(stegOpts, { decMode: 'binary' });
+    const { decMode } = opts;
     const img = await loadImg(imgUrl);
     const encImgCanvas = document.createElement('canvas');
     const encImgcontext = encImgCanvas.getContext('2d');
@@ -20,6 +22,7 @@ export async function decodeImg(imgUrl: string | undefined, stegMethod = 'lsb'):
         imgBitmapData: encodedImgBitmap,
         imgHeight: img.height,
         imgWidth: img.width,
+        decMode
       });
     }
     /* Incomplete

@@ -15,7 +15,6 @@ const DecodeSecretCard = ({ decSecret }: { decSecret: string }) => {
     async function getQRbase64(msg: string, QRSize: number = 200) {
       const res = await generateQRbase64(msg, QRSize);
       setQRbase64(res);
-      // console.log(`QRbase64 = ${QRbase64}`);
       return res;
     }
     if (decSecret.length > 0 && decSecret.length <= 150) {

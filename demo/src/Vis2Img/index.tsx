@@ -7,10 +7,6 @@ import './index.less';
 const Vis2ImgPanel = ({ width }: { width: string | number }) => {
   const [encodedImg, setEncodedImg] = useState<string>();
 
-  const getEncodedImg = (image: string | undefined) => {
-    setEncodedImg(image);
-  };
-
   return (
     <div
       style={{
@@ -18,7 +14,7 @@ const Vis2ImgPanel = ({ width }: { width: string | number }) => {
         marginTop: '25px',
       }}
     >
-      <VisCard setEncodedImg={getEncodedImg} />
+      <VisCard setEncodedImg={setEncodedImg} />
 
       <Card hoverable className={'uploadImgPanel'} title="Encoded Image">
         <EncodedImgCard encodedImg={encodedImg} />

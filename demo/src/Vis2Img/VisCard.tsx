@@ -14,10 +14,6 @@ const VisCard = ({ setEncodedImg }: { setEncodedImg: (image: string | undefined)
   const [curChartSamp, setCurChartSamp] = useState<Chart>(CHART_SAMPLES[0].charts[0]);
   const [chartObj, setChartObj] = useState<any>();
 
-  const getChartObj = (chartObj: any) => {
-    setChartObj(chartObj);
-  };
-
   const handleEncodeBtn = () => {
     setStopUploadImg(true);
     html2canvas(chartObj.ele, {
@@ -28,7 +24,6 @@ const VisCard = ({ setEncodedImg }: { setEncodedImg: (image: string | undefined)
         // downloadPng(imgData, "encodedImg");
 
         const inputSecret = JSON.stringify(curChartSamp);
-        // console.log(`inputSecret = ${inputSecret}`);
         encodeImg(imgData, inputSecret)
           .then((result) => {
             if (result) {
@@ -82,7 +77,7 @@ const VisCard = ({ setEncodedImg }: { setEncodedImg: (image: string | undefined)
             marginTop: '25px',
           }}
         >
-          <ChartView curChartSamp={curChartSamp} getChartObj={getChartObj} />
+          <ChartView curChartSamp={curChartSamp} getChartObj={setChartObj} />
         </div>
 
         <div className={'buttonBox'}>

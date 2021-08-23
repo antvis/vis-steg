@@ -8,10 +8,6 @@ import './index.less';
 const Img2VisPanel = ({ width }: { width: string | number }) => {
   const [decSecret, setDecSecret] = useState<string>('');
 
-  const getDecSecret = (secret: string) => {
-    setDecSecret(secret);
-  };
-
   let decSecretJSON: any;
   if (decSecret.length > 0) {
     try {
@@ -35,8 +31,8 @@ const Img2VisPanel = ({ width }: { width: string | number }) => {
     if (
       decSecretJSON.constructor === Object &&
       decSecretJSON !== undefined &&
-      // eslint-disable-next-line no-prototype-builtins
-      decSecretJSON.hasOwnProperty('data') && decSecretJSON.hasOwnProperty('config')
+      Object.keys(decSecretJSON).includes('data', 'config') &&
+      Object.keys(decSecretJSON).includes('config')
     ) {
       const { data } = decSecretJSON;
       fetch(data)
@@ -59,7 +55,7 @@ const Img2VisPanel = ({ width }: { width: string | number }) => {
           width: `${width}`,
         }}
       >
-        <DecoderCard setDecSecret={getDecSecret} />
+        <DecoderCard setDecSecret={setDecSecret} />
       </div>
 
       <div

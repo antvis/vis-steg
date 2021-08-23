@@ -162,7 +162,7 @@ export class LSBSteg {
       // return a decoded secret message using QRcode as the error correction
       const headStream = this.readBits({ numBits: 200 * 200 });
       const headStr = bits2QR(headStream, 200);
-      if (headStr !== undefined && headStr.length > 0) {
+      if (headStr) {
         let headJSON: any;
         try {
           headJSON = JSON.parse(headStr);
@@ -173,12 +173,11 @@ export class LSBSteg {
         if (
           headJSON.constructor === Object &&
           headJSON !== undefined &&
-          // eslint-disable-next-line no-prototype-builtins
-          headJSON.hasOwnProperty('headStr') && headJSON.headStr === this.headStr &&
-          // eslint-disable-next-line no-prototype-builtins
-          headJSON.hasOwnProperty('numQR') && headJSON.hasOwnProperty('QRSize')
+          Object.keys(headJSON).includes('headStr') &&
+          headJSON.headStr === this.headStr &&
+          Object.keys(headJSON).includes('numQR') &&
+          Object.keys(headJSON).includes('QRSize')
         ) {
-          // console.log(`headJSON = ${JSON.stringify(headJSON)}`);
           for (let i = 0; i < headJSON.numQR; i += 1) {
             const tmpStream = this.readBits({ numBits: headJSON.QRSize * headJSON.QRSize });
             const tmpStr = bits2QR(tmpStream, headJSON.QRSize);
