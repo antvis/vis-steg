@@ -40,7 +40,6 @@ export async function generateSingleQRbits(msg: string, QRSize: number = 200): P
       QRbits += '1';
     }
   }
-  // console.log(`QRbits = ${QRbits}`);
   return QRbits;
 }
 
@@ -92,7 +91,6 @@ export function bits2QR(QRbits: string, QRSize: number = 200): string {
   offScreenCanvas.height = QRSize;
   // const offCanvascxt = offScreenCanvas.getContext('2d');
   const QRImgDataPixArr = [];
-  // console.log(`QRbits = ${QRbits}`);
   for (let i = 0; i < QRbits.length; i += 1) {
     for (let j = 0; j < 3; j += 1) {
       if (QRbits[i] === '0') {

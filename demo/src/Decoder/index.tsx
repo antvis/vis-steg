@@ -6,10 +6,6 @@ import './index.less';
 const DecoderPanel = ({ width }: { width: string | number }) => {
   const [decSecret, setDecSecret] = useState<string>('');
 
-  const getDecSecret = (secret: string) => {
-    setDecSecret(secret);
-  };
-
   return (
     <div
       style={{
@@ -17,7 +13,7 @@ const DecoderPanel = ({ width }: { width: string | number }) => {
         marginTop: '25px',
       }}
     >
-      <DecoderCard setDecSecret={getDecSecret} />
+      <DecoderCard setDecSecret={setDecSecret} />
 
       <DecodeSecretCard decSecret={decSecret} />
 

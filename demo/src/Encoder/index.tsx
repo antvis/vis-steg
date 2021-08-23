@@ -7,10 +7,6 @@ import './index.less';
 const EncoderPanel = ({ width }: { width: string | number }) => {
   const [encodedImg, setEncodedImg] = useState<string>();
 
-  const getEncodedImg = (image: string | undefined) => {
-    setEncodedImg(image);
-  };
-
   return (
     <div
       style={{
@@ -18,7 +14,7 @@ const EncoderPanel = ({ width }: { width: string | number }) => {
         marginTop: '25px',
       }}
     >
-      <EncoderCard setEncodedImg={getEncodedImg} />
+      <EncoderCard setEncodedImg={setEncodedImg} />
 
       <Card hoverable className={'uploadImgPanel'} title="Encoded Image">
         <EncodedImgCard encodedImg={encodedImg} />

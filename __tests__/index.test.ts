@@ -9,15 +9,11 @@ describe('test', () => {
     const mxImgSide = 600;
     const mnImgSide = 300;
     const imgChannelList = [1, 3, 4];
-    const acceptCharacterStr = '0,1,2,3,4,5,6,7,8,9,A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z, ,·,.,:,;,+,-,*,/,~,!,@,#,$,%,^,&,`,=,<,>,[,],(,),?,_,{,},|';
-    const acceptCharacter = acceptCharacterStr.split(',');
-    acceptCharacter.push(',');
-    acceptCharacter.push('\\');
-    acceptCharacter.push('\'');
+    const acceptCharacterStr = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz ·.:;+-*/~!@#$%^&`=<>[]()?_{}|,\'\\';
+    const acceptCharacter = acceptCharacterStr.split('');
     const QRsizeList = [200, 300, 400];
     const mxMsgLenList = [140, 230, 360];
     while (testCase > 0) {
-      // console.log(`testCase = ${testCase}`);
       const imgHeight = Math.floor(Math.random() * (mxImgSide - mnImgSide + 1)) + mnImgSide;
       const imgWidth = Math.floor(Math.random() * (mxImgSide - mnImgSide + 1)) + mnImgSide;
       const imgChannel = imgChannelList[Math.floor(Math.random() * imgChannelList.length)];

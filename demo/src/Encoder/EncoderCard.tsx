@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import { Card, Button, Spin, Input } from 'antd';
 import { SettingOutlined } from '@ant-design/icons';
 import classNames from 'classnames';
+import { cloneDeep } from 'lodash';
+import StegSettingModal from '../components/StegSettingModal';
+import { LSBEncodeOptions } from '../../../src';
 import UploadImgModal from '../components/UploadImgModal';
 import { encodeImg } from '../util';
 import './index.less';
@@ -13,16 +16,14 @@ const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string | undefi
   const [stopUploadImg, setStopUploadImg] = useState<boolean>(false);
   const [reloadUpImgPanel, setReloadUpImgPanel] = useState<boolean>(false);
   const [upImg, setUpImg] = useState<string>();
-
-  const getUploadImg = (image: string | undefined) => {
-    setUpImg(image);
-  };
+  const [showEncodeSetting, setShowEncodeSetting] = useState<boolean>(false);
+  const defaultLSBEncOpts = { encMode: 'binary', QRSize: 200, mxMsgLen: 130 };
+  const [curLSBEncOpts, setCurLSBEncOpts] = useState<LSBEncodeOptions | undefined>(defaultLSBEncOpts);
 
   const handleEncodeBtn = () => {
     setStopUploadImg(true);
-    // console.log("inputSecret = " + inputSecret);
     if (inputSecret === undefined) setInputSecret('');
-    encodeImg(upImg, inputSecret)
+    encodeImg(upImg, inputSecret, curLSBEncOpts)
       .then((result) => {
         if (result) {
           setEncodedImg(result);
@@ -34,10 +35,22 @@ const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string | undefi
       .catch(() => {
         // eslint-disable-next-line no-alert
         alert('Failed to encode the secret!');
-        setReloadUpImgPanel(!reloadUpImgPanel);
-        setEncodedImg(undefined);
+        // Maybe keep the failed encoding try is better
+        // setReloadUpImgPanel(!reloadUpImgPanel);
+        // setInputSecret('');
+        // setEncodedImg(undefined);
         setStopUploadImg(false);
       });
+  };
+
+  const handleEncodeSettingOk = (opts: LSBEncodeOptions) => {
+    const newOpts = cloneDeep(opts);
+    setCurLSBEncOpts(newOpts);
+    setShowEncodeSetting(false);
+  };
+
+  const handleEncodeSettingCancel = () => {
+    setShowEncodeSetting(false);
   };
 
   return (
@@ -52,11 +65,20 @@ const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string | undefi
           type="link"
           icon={<SettingOutlined />}
           size={'middle'}
+          onClick={() => {
+            setShowEncodeSetting(true);
+          }}
         />
-      </div>
+        <StegSettingModal
+          type="EncodeSetting"
+          visible={showEncodeSetting}
+          onOk={handleEncodeSettingOk}
+          onCancel={handleEncodeSettingCancel}
+        ></StegSettingModal>
+      </div >
     }>
       <Spin spinning={stopUploadImg}>
-        <UploadImgModal key="Encode" reload={reloadUpImgPanel} setUploadImg={getUploadImg}></UploadImgModal>
+        <UploadImgModal key="Encode" reload={reloadUpImgPanel} setUploadImg={setUpImg}></UploadImgModal>
 
         <div className={'sourceContainer'}>
           <p className={'sourceContainerText'}>Secret massages:</p>
@@ -68,6 +90,7 @@ const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string | undefi
             onChange={(e) => {
               setInputSecret(e.target.value);
             }}
+            value={inputSecret}
           />
         </div>
 
@@ -80,7 +103,7 @@ const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string | undefi
             }}
             onClick={() => {
               setReloadUpImgPanel(!reloadUpImgPanel);
-              // setInputSecret("");
+              setInputSecret('');
               setEncodedImg(undefined);
             }}
           >
@@ -100,7 +123,7 @@ const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string | undefi
           </Button>
         </div>
       </Spin>
-    </Card>
+    </Card >
   );
 };
 
