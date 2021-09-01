@@ -31,7 +31,7 @@ const Img2VisPanel = ({ width }: { width: string | number }) => {
     if (
       decSecretJSON.constructor === Object &&
       decSecretJSON !== undefined &&
-      Object.keys(decSecretJSON).includes('data', 'config') &&
+      Object.keys(decSecretJSON).includes('data') &&
       Object.keys(decSecretJSON).includes('config')
     ) {
       const { data } = decSecretJSON;

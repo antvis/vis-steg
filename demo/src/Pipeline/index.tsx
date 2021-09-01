@@ -38,8 +38,7 @@ const PipelinePanel = ({ width }: { width: string | number }) => {
   };
 
   useEffect(() => {
-    if (encodedImg === undefined)
-      setDecSecret('');
+    if (encodedImg === undefined) setDecSecret('');
   }, [encodedImg]);
 
   const handleDecodeSettingOk = (opts: LSBDecodeOptions) => {
@@ -67,29 +66,34 @@ const PipelinePanel = ({ width }: { width: string | number }) => {
           width: `${width}`,
         }}
       >
-        <Card hoverable className={'uploadImgPanel'} title="Encoded Image" extra={
-          <div>
-            <Button
-              style={{
-                float: 'right',
-                marginRight: '0px',
-                marginBottom: '0px',
-              }}
-              type="link"
-              icon={<SettingOutlined />}
-              size={'middle'}
-              onClick={() => {
-                setShowDecodeSetting(true);
-              }}
-            />
-            <StegSettingModal
-              type="DecodeSetting"
-              visible={showDecodeSetting}
-              onOk={handleDecodeSettingOk}
-              onCancel={handleDecodeSettingCancel}
-            ></StegSettingModal>
-          </div >
-        }>
+        <Card
+          hoverable
+          className={'uploadImgPanel'}
+          title="Encoded Image"
+          extra={
+            <div>
+              <Button
+                style={{
+                  float: 'right',
+                  marginRight: '0px',
+                  marginBottom: '0px',
+                }}
+                type="link"
+                icon={<SettingOutlined />}
+                size={'middle'}
+                onClick={() => {
+                  setShowDecodeSetting(true);
+                }}
+              />
+              <StegSettingModal
+                type="DecodeSetting"
+                visible={showDecodeSetting}
+                onOk={handleDecodeSettingOk}
+                onCancel={handleDecodeSettingCancel}
+              ></StegSettingModal>
+            </div>
+          }
+        >
           <EncodedImgCard encodedImg={encodedImg} />
 
           <Spin spinning={stopUploadImg}>
@@ -109,7 +113,6 @@ const PipelinePanel = ({ width }: { width: string | number }) => {
         </Card>
 
         <DecodeSecretCard decSecret={decSecret} />
-
       </div>
     </div>
   );

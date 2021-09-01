@@ -3,7 +3,11 @@ import { LSBSteg, LSBDecodeOptions } from '../../../src';
 import { loadImg } from './loadImg';
 
 // Get the secret massage from img url
-export async function decodeImg(imgUrl: string | undefined, stegOpts?: LSBDecodeOptions, stegMethod = 'lsb'): Promise<string | undefined> {
+export async function decodeImg(
+  imgUrl: string | undefined,
+  stegOpts?: LSBDecodeOptions,
+  stegMethod = 'lsb'
+): Promise<string | undefined> {
   try {
     const opts = initOptions(stegOpts, { decMode: 'binary' });
     const { decMode } = opts;
@@ -22,7 +26,7 @@ export async function decodeImg(imgUrl: string | undefined, stegOpts?: LSBDecode
         imgBitmapData: encodedImgBitmap,
         imgHeight: img.height,
         imgWidth: img.width,
-        decMode
+        decMode,
       });
     }
     /* Incomplete

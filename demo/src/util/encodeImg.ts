@@ -3,7 +3,12 @@ import { LSBSteg, LSBEncodeOptions } from '../../../src';
 import { loadImg } from './loadImg';
 
 // Get the encoded image from img url
-export async function encodeImg(imgUrl: string | undefined, secretInfo: string, stegOpts?: LSBEncodeOptions, stegMethod = 'lsb'): Promise<string | undefined> {
+export async function encodeImg(
+  imgUrl: string | undefined,
+  secretInfo: string,
+  stegOpts?: LSBEncodeOptions,
+  stegMethod = 'lsb'
+): Promise<string | undefined> {
   try {
     // TEMP
     console.log(stegMethod);
@@ -29,7 +34,7 @@ export async function encodeImg(imgUrl: string | undefined, secretInfo: string, 
           secretInfo,
           encMode,
           QRSize,
-          mxMsgLen
+          mxMsgLen,
         })
       );
       encodedImgData = new ImageData(encodedImgBitmap, containerImgCanvas.width, containerImgCanvas.height);
