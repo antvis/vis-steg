@@ -17,7 +17,9 @@ export default function App() {
   const StegSider = ({ curStegInfo }: { curStegInfo: StegSiderInfo }) => {
     return (
       <div>
-        <div className={'tmpLogo'}><h1>vis-steg demos</h1></div>
+        <div className={'tmpLogo'}>
+          <h1>vis-steg demos</h1>
+        </div>
         <Menu theme="light" defaultSelectedKeys={[curStegInfo.type]} mode="inline">
           {STEG_SIDER_INFOS.map((scene) => (
             <Menu.Item

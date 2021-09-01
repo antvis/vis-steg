@@ -27,7 +27,7 @@ const StegSettingModalWrapper = (props: {
         ...props.style,
       }}
       centered
-    // destroyOnClose
+      // destroyOnClose
     >
       {props.children}
     </Modal>
@@ -37,8 +37,8 @@ const StegSettingModalWrapper = (props: {
 type StegSettingType = 'EncodeSetting' | 'DecodeSetting';
 const StegEncodeSettingModal = ({
   visible = false,
-  onOk = (opts: LSBEncodeOptions | LSBDecodeOptions): void => { },
-  onCancel = () => { },
+  onOk = (opts: LSBEncodeOptions | LSBDecodeOptions): void => {},
+  onCancel = () => {},
 }) => {
   const defaultLSBEncOpts = { encMode: 'binary', QRSize: 200, mxMsgLen: 130 };
   const [curLSBEncOpts, setCurLSBEncOpts] = useState<LSBEncodeOptions>(defaultLSBEncOpts);
@@ -47,8 +47,7 @@ const StegEncodeSettingModal = ({
     if (Object.keys(curLSBEncOpts).includes(key)) {
       if (key === 'encMode' && value === 'Binary') {
         setCurLSBEncOpts(defaultLSBEncOpts);
-      }
-      else {
+      } else {
         const newStegConfig = cloneDeep(curLSBEncOpts);
         newStegConfig[key] = value;
         setCurLSBEncOpts(newStegConfig);
@@ -63,10 +62,7 @@ const StegEncodeSettingModal = ({
         onChange={(event) => updateStegConfigItem(item.id, event.target.value)}
       >
         {item.options.map((option) => (
-          <Radio
-            key={option}
-            value={option}
-          >
+          <Radio key={option} value={option}>
             <span> {option} </span>
           </Radio>
         ))}
@@ -86,28 +82,26 @@ const StegEncodeSettingModal = ({
       <div style={{ marginLeft: '0px', width: '320px' }}>
         {RadioFormItem(item)}
 
-        {(item.showChild === curLSBEncOpts.encMode && item.child) ? (
-          item.child.map((cItm) =>
-          (<div style={{ width: '80%', marginTop: '10px' }} key={cItm.id}>
-            <label>
-              {cItm.label}
-            </label>
-            <InputNumber
-              style={{
-                width: '100%',
-                marginTop: '5px'
-              }}
-              autoFocus={false}
-              size="large"
-              defaultValue={cItm.defaultVal}
-              min={cItm.minVal}
-              max={cItm.maxVal}
-              step={cItm.step}
-              onChange={(value) => updateStegConfigItem(cItm.id, value)}
-            />
-          </div>)
-          )) : ('')
-        }
+        {item.showChild === curLSBEncOpts.encMode && item.child
+          ? item.child.map((cItm) => (
+              <div style={{ width: '80%', marginTop: '10px' }} key={cItm.id}>
+                <label>{cItm.label}</label>
+                <InputNumber
+                  style={{
+                    width: '100%',
+                    marginTop: '5px',
+                  }}
+                  autoFocus={false}
+                  size="large"
+                  defaultValue={cItm.defaultVal}
+                  min={cItm.minVal}
+                  max={cItm.maxVal}
+                  step={cItm.step}
+                  onChange={(value) => updateStegConfigItem(cItm.id, value)}
+                />
+              </div>
+            ))
+          : ''}
       </div>
     );
   };
@@ -116,43 +110,28 @@ const StegEncodeSettingModal = ({
     const formItems = [];
     ENCODE_SETTING_INFOS.config.map((item, idx) => {
       if (idx === 0) {
-        formItems.push(
-          {
-            label: item.label,
-            children: (
-              <div key={item.id}>
-                {RadioFormItem(item)}
-              </div>
-            ),
-          }
-        );
-      }
-      else {
-        formItems.push(
-          {
-            label: item.label,
-            children: (
-              QRSettingFormItem(item)
-            ),
-          }
-        );
+        formItems.push({
+          label: item.label,
+          children: <div key={item.id}>{RadioFormItem(item)}</div>,
+        });
+      } else {
+        formItems.push({
+          label: item.label,
+          children: QRSettingFormItem(item),
+        });
       }
     });
 
     return (
       <Form name="stegEncSettingForm">
-        {
-          formItems.map((item, index) => {
-            const { children, ...rest } = item;
-            return (
-              <Form.Item key={index} {...rest}
-                style={{ flexDirection: 'row', margin: '10px' }}
-              >
-                {children}
-              </Form.Item>
-            );
-          })
-        }
+        {formItems.map((item, index) => {
+          const { children, ...rest } = item;
+          return (
+            <Form.Item key={index} {...rest} style={{ flexDirection: 'row', margin: '10px' }}>
+              {children}
+            </Form.Item>
+          );
+        })}
       </Form>
     );
   };
@@ -168,21 +147,16 @@ const StegEncodeSettingModal = ({
         onCancel();
       }}
     >
-
-      <div>
-        {renderFormItems()}
-      </div>
-
+      <div>{renderFormItems()}</div>
     </StegSettingModalWrapper>
   );
 };
 
 const StegDecodeSettingModal = ({
   visible = false,
-  onOk = (opts: LSBEncodeOptions | LSBDecodeOptions): void => { },
-  onCancel = () => { },
+  onOk = (opts: LSBEncodeOptions | LSBDecodeOptions): void => {},
+  onCancel = () => {},
 }) => {
-
   const defaultLSBDecOpts = { decMode: 'binary' };
   const [curLSBDecOpts, setCurLSBDecOpts] = useState<LSBDecodeOptions>(defaultLSBDecOpts);
 
@@ -201,10 +175,7 @@ const StegDecodeSettingModal = ({
         onChange={(event) => updateStegConfigItem(item.id, event.target.value)}
       >
         {item.options.map((option) => (
-          <Radio
-            key={option}
-            value={option}
-          >
+          <Radio key={option} value={option}>
             <span> {option} </span>
           </Radio>
         ))}
@@ -215,32 +186,22 @@ const StegDecodeSettingModal = ({
   const renderFormItems = () => {
     const formItems = [];
     DECODE_SETTING_INFOS.config.map((item, idx) => {
-      formItems.push(
-        {
-          label: item.label,
-          children: (
-            <div key={item.id}>
-              {RadioFormItem(item)}
-            </div>
-          ),
-        }
-      );
+      formItems.push({
+        label: item.label,
+        children: <div key={item.id}>{RadioFormItem(item)}</div>,
+      });
     });
 
     return (
       <Form name="stegDecSettingForm">
-        {
-          formItems.map((item, index) => {
-            const { children, ...rest } = item;
-            return (
-              <Form.Item key={index} {...rest}
-                style={{ flexDirection: 'row', margin: '10px' }}
-              >
-                {children}
-              </Form.Item>
-            );
-          })
-        }
+        {formItems.map((item, index) => {
+          const { children, ...rest } = item;
+          return (
+            <Form.Item key={index} {...rest} style={{ flexDirection: 'row', margin: '10px' }}>
+              {children}
+            </Form.Item>
+          );
+        })}
       </Form>
     );
   };
@@ -256,9 +217,7 @@ const StegDecodeSettingModal = ({
         onCancel();
       }}
     >
-      <div>
-        {renderFormItems()}
-      </div>
+      <div>{renderFormItems()}</div>
     </StegSettingModalWrapper>
   );
 };

@@ -41,7 +41,7 @@ const QRcodeSize: NumberConfig = {
   defaultVal: 200,
   minVal: 200,
   maxVal: 400,
-  step: 100
+  step: 100,
 };
 
 const eachMsgLen: NumberConfig = {
@@ -51,7 +51,7 @@ const eachMsgLen: NumberConfig = {
   defaultVal: 130,
   minVal: 50,
   maxVal: 400,
-  step: 30
+  step: 30,
 };
 
 const stegAlgorithm: RadioConfig = {
@@ -67,7 +67,7 @@ const encodeMode: RadioConfig = {
   label: 'Encode Mode',
   options: ['Binary', 'QRcode'],
   child: [QRcodeSize, eachMsgLen],
-  showChild: 'QRcode'
+  showChild: 'QRcode',
 };
 
 const decodeMode: RadioConfig = {
@@ -77,15 +77,13 @@ const decodeMode: RadioConfig = {
   options: ['Binary', 'QRcode'],
 };
 
-export const ENCODE_SETTING_INFOS: StegSettingInfo =
-{
+export const ENCODE_SETTING_INFOS: StegSettingInfo = {
   type: 'EncodeSetting',
   title: 'Encode Setting',
   config: [stegAlgorithm, encodeMode],
 };
 
-export const DECODE_SETTING_INFOS: StegSettingInfo =
-{
+export const DECODE_SETTING_INFOS: StegSettingInfo = {
   type: 'DecodeSetting',
   title: 'Decode Setting',
   config: [stegAlgorithm, decodeMode],

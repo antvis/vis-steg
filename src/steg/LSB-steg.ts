@@ -144,7 +144,11 @@ export class LSBSteg {
    */
   readLSB(options?: LSBDecodeOptions): string {
     const opts = initOptions(options, {
-      imgBitmapData: [], imgHeight: 0, imgWidth: 0, imgChannel: 0, decMode: 'binary'
+      imgBitmapData: [],
+      imgHeight: 0,
+      imgWidth: 0,
+      imgChannel: 0,
+      decMode: 'binary',
     });
     const { imgBitmapData, imgHeight, imgWidth, decMode } = opts;
     if (imgBitmapData.length === 0 || imgHeight === 0 || imgWidth === 0) {
@@ -209,8 +213,14 @@ export class LSBSteg {
    */
   async writeLSB(options?: LSBEncodeOptions): Promise<number[]> {
     const opts = initOptions(options, {
-      imgBitmapData: [], imgHeight: 0, imgWidth: 0, imgChannel: 0,
-      secretInfo: '', encMode: 'binary', QRSize: 200, mxMsgLen: 150
+      imgBitmapData: [],
+      imgHeight: 0,
+      imgWidth: 0,
+      imgChannel: 0,
+      secretInfo: '',
+      encMode: 'binary',
+      QRSize: 200,
+      mxMsgLen: 150,
     });
     const { imgBitmapData, imgHeight, imgWidth, secretInfo, encMode, QRSize, mxMsgLen } = opts;
     if (imgBitmapData.length === 0 || imgHeight === 0 || imgWidth === 0) {

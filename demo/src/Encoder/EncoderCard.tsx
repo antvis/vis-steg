@@ -54,29 +54,34 @@ const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string | undefi
   };
 
   return (
-    <Card hoverable className={'uploadImgPanel'} title="Encoder" extra={
-      <div>
-        <Button
-          style={{
-            float: 'right',
-            marginRight: '0px',
-            marginBottom: '0px',
-          }}
-          type="link"
-          icon={<SettingOutlined />}
-          size={'middle'}
-          onClick={() => {
-            setShowEncodeSetting(true);
-          }}
-        />
-        <StegSettingModal
-          type="EncodeSetting"
-          visible={showEncodeSetting}
-          onOk={handleEncodeSettingOk}
-          onCancel={handleEncodeSettingCancel}
-        ></StegSettingModal>
-      </div >
-    }>
+    <Card
+      hoverable
+      className={'uploadImgPanel'}
+      title="Encoder"
+      extra={
+        <div>
+          <Button
+            style={{
+              float: 'right',
+              marginRight: '0px',
+              marginBottom: '0px',
+            }}
+            type="link"
+            icon={<SettingOutlined />}
+            size={'middle'}
+            onClick={() => {
+              setShowEncodeSetting(true);
+            }}
+          />
+          <StegSettingModal
+            type="EncodeSetting"
+            visible={showEncodeSetting}
+            onOk={handleEncodeSettingOk}
+            onCancel={handleEncodeSettingCancel}
+          ></StegSettingModal>
+        </div>
+      }
+    >
       <Spin spinning={stopUploadImg}>
         <UploadImgModal key="Encode" reload={reloadUpImgPanel} setUploadImg={setUpImg}></UploadImgModal>
 
@@ -123,7 +128,7 @@ const EncoderCard = ({ setEncodedImg }: { setEncodedImg: (image: string | undefi
           </Button>
         </div>
       </Spin>
-    </Card >
+    </Card>
   );
 };
 

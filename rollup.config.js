@@ -6,7 +6,7 @@ module.exports = [
   {
     input: 'src/index.ts',
     output: {
-      file: 'dist/vis-steg.min.js',
+      file: 'dist/index.min.js',
       name: 'VisSteg',
       format: 'umd',
       sourcemap: false,

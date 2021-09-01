@@ -21,8 +21,7 @@ const DecodeSecretCard = ({ decSecret }: { decSecret: string }) => {
       getQRbase64(decSecret);
       setUseTrigger('hover');
       setBtnDisabled(false);
-    }
-    else {
+    } else {
       setQRbase64('');
       setUseTrigger('');
       setBtnDisabled(true);

@@ -48,29 +48,34 @@ const DecoderCard = ({ setDecSecret }: { setDecSecret: (secret: string) => void 
   };
 
   return (
-    <Card hoverable className={'uploadImgPanel'} title="Decoder" extra={
-      <div>
-        <Button
-          style={{
-            float: 'right',
-            marginRight: '0px',
-            marginBottom: '0px',
-          }}
-          type="link"
-          icon={<SettingOutlined />}
-          size={'middle'}
-          onClick={() => {
-            setShowDecodeSetting(true);
-          }}
-        />
-        <StegSettingModal
-          type="DecodeSetting"
-          visible={showDecodeSetting}
-          onOk={handleDecodeSettingOk}
-          onCancel={handleDecodeSettingCancel}
-        ></StegSettingModal>
-      </div >
-    }>
+    <Card
+      hoverable
+      className={'uploadImgPanel'}
+      title="Decoder"
+      extra={
+        <div>
+          <Button
+            style={{
+              float: 'right',
+              marginRight: '0px',
+              marginBottom: '0px',
+            }}
+            type="link"
+            icon={<SettingOutlined />}
+            size={'middle'}
+            onClick={() => {
+              setShowDecodeSetting(true);
+            }}
+          />
+          <StegSettingModal
+            type="DecodeSetting"
+            visible={showDecodeSetting}
+            onOk={handleDecodeSettingOk}
+            onCancel={handleDecodeSettingCancel}
+          ></StegSettingModal>
+        </div>
+      }
+    >
       <Spin spinning={stopUploadImg}>
         <UploadImgModal key="Decode" reload={reloadUpImgPanel} setUploadImg={setUpImg}></UploadImgModal>
 

@@ -1,14 +1,14 @@
 {
   "name": "@antv/vis-steg",
-  "version": "0.1.0",
+  "version": "0.1.0-alpha.1",
   "description": "Visualization Steganography: conceal information within visualization images.",
-  "main": "lib/src/index.js",
-  "types": "lib/src/index.d.ts",
-  "browser": "dist/index.js",
-  "module": "es/src/index.js",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "unpkg": "dist/index.min.js",
+  "module": "esm/index.js",
   "files": [
     "src",
-    "es",
+    "esm",
     "dist",
     "lib"
   ],
@@ -58,7 +58,7 @@
     "rollup-plugin-uglify": "^6.0.4",
     "style-loader": "^2.0.0",
     "ts-jest": "^26.5.4",
-    "typescript": "^4.2.4"
+    "typescript": "4.3.5"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -69,12 +69,12 @@
   },
   "limit-size": [
     {
-      "path": "dist/vis-steg.js",
+      "path": "dist/index.min.js",
       "limit": "8 Kb",
       "gzip": true
     },
     {
-      "path": "dist/vis-steg.js",
+      "path": "dist/index.min.js",
       "limit": "24 Kb"
     }
   ],
@@ -95,7 +95,6 @@
   },
   "homepage": "https://antvis.github.io/vis-steg",
   "dependencies": {
-    "canvas": "^2.8.0",
     "jsqr": "^1.4.0",
     "pica": "^7.1.0",
     "qrcode": "^1.4.4"
